@@ -4,7 +4,7 @@ namespace Base {
     public abstract class PlayerSubFrame : MonoBehaviour {
         #region Properties
 
-        protected PlayerMainframe Parent;
+        protected PlayerMain Parent;
         protected Action UpdateAction;
         protected Action FixedUpdateAction;
 
@@ -30,7 +30,7 @@ namespace Base {
         #region Spesific Functions
 
         public virtual void SetupSubFrame() {
-            Parent = GetComponent<PlayerMainframe>();
+            Parent = GetComponent<PlayerMain>();
             Parent.AddFramesToList(this);
             //B_CES_CentralEventSystem.OnBeforeLevelEnd.AddFunction(EndFunctions, false);
         }
@@ -41,14 +41,6 @@ namespace Base {
             UpdateAction = null;
             FixedUpdateAction = null;
         }
-
-        #endregion
-
-        #region Generic Functions
-
-        #endregion
-
-        #region IEnumerators
 
         #endregion
     }
