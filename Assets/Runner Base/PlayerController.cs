@@ -155,9 +155,12 @@ public class PlayerController : MonoBehaviour
 
         camera.m_UpdateMethod = CinemachineBrain.UpdateMethod.FixedUpdate;
         camera.m_BlendUpdateMethod = CinemachineBrain.BrainUpdateMethod.FixedUpdate;
-        splineComputer.updateMode = SplineComputer.UpdateMode.FixedUpdate;
-        splineFollower.physicsMode = SplineTracer.PhysicsMode.Rigidbody;
-        splineFollower.updateMethod = SplineUser.UpdateMethod.FixedUpdate;
+        FindObjectOfType<SplineComputer>().updateMode = SplineComputer.UpdateMode.FixedUpdate;
+        GetComponent<SplineFollower>().physicsMode = SplineTracer.PhysicsMode.Rigidbody;
+        GetComponent<SplineFollower>().updateMethod = SplineUser.UpdateMethod.FixedUpdate;
+        GetComponent<SplineFollower>().spline = FindObjectOfType<SplineComputer>();
+        FindObjectOfType<CinemachineVirtualCamera>().LookAt = transform;
+        FindObjectOfType<CinemachineVirtualCamera>().Follow = transform;
     }
     #endif
 }
