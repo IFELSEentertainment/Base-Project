@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 namespace Base {
@@ -39,6 +41,20 @@ namespace Base {
             var _temp = mainObj;
             _temp.y -= yMinus;
             return (objectToPush - _temp) * force;
+        }
+        
+        public static Vector3 FindCenterInGroup<T>(this IEnumerable<T> ObjectGroup) where T : MonoBehaviour {
+            MonoBehaviour[] objects = ObjectGroup.ToArray();
+            if (objects.Length == 0)
+                return Vector3.zero;
+            if (objects.Length == 1)
+                return objects[0].transform.position;
+            var bounds = new Bounds(objects[0].transform.position, Vector3.zero);
+            for (var i = 1; i < objects.Length; i++) {
+                if(objects[i] != null)
+                    bounds.Encapsulate(objects[i].transform.position); 
+            }
+            return bounds.center;
         }
 
         #endregion Vector3 Extentions
@@ -102,6 +118,26 @@ namespace Base {
         public static void ResizeObject(this Transform objToEnlarge, float Size) {
             objToEnlarge.localScale = new Vector3(Size, Size, Size);
         }
+        
+        public static IEnumerable GetAllChilrenOnTransform(this Transform transform) {
+            List<Transform> transforms = new List<Transform>();
+            foreach (Transform item in transform) {
+                transforms.Add(item);
+            }
+            return transforms;
+        }
+
+        public static void DestroyAllChildren(this Transform transform) {
+            if (transform.childCount <= 0) return;
+            for (int i = transform.childCount - 1; i >= 0; i--) {
+                #if UNITY_EDITOR
+                if(!Application.isPlaying)
+                    GameObject.DestroyImmediate(transform.GetChild(i).gameObject);
+                #endif
+                if(Application.isPlaying)
+                    GameObject.Destroy(transform.GetChild(i).gameObject);
+            }
+        }
 
         #endregion Transform Extentions
 
@@ -164,5 +200,12 @@ namespace Base {
         }
 
         #endregion String Extentions
+
+        #region Ienum Extentions
+
+        
+        
+
+        #endregion
     }
 }
