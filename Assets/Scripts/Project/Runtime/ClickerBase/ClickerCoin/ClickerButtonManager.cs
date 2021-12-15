@@ -15,9 +15,12 @@ public class ClickerButtonManager : MonoBehaviour {
 
     void OpenPanel() {
         GUIManager.GetPanel(Enum_Menu_PlayerOverlayComponent.UpgradesPanel).ActivatePart();
+        GUIManager.GetButton(Enum_Menu_PlayerOverlayComponent.OpenUpgradesPanel).DeactivatePart();
     }
 
     void ClosePanel() {
         GUIManager.GetPanel(Enum_Menu_PlayerOverlayComponent.UpgradesPanel).DeactivatePart();
+        GUIManager.GetButton(Enum_Menu_PlayerOverlayComponent.OpenUpgradesPanel).ActivatePart();
+        // GUIManager.GetButton(Enum_Menu_PlayerOverlayComponent.ClosePanelButton).DeactivatePart();
     }
 }

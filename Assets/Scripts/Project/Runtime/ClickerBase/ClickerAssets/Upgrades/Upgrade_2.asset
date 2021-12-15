@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aca20a3473754493b8ca3a5bf8142897, type: 3}
-  m_Name: Third
+  m_Name: Upgrade_2
   m_EditorClassIdentifier: 
-  ButtonEnum: 8
-  UpgradeType: 1
+  ButtonEnum: 7
+  UpgradeType: 0
   Cost:
-    BaseValue: 175000
+    BaseValue: 1250
   UpgradeAmount:
     Order: 0
-    Value: 120
+    Value: 45
     Type: 100
   Curve:
     serializedVersion: 2

@@ -13,6 +13,8 @@ public class ClickerCoin : SerializedScriptableObject {
     [SerializeField] Enum_Menu_PlayerOverlayComponent PerClickEnum;
     [SerializeField] Enum_Menu_PlayerOverlayComponent PerSecondEnum;
 
+    
+    
     public float MainMoney;
     public ATFloat IncomePerClick;
     public ATFloat IncomePerSecond;
