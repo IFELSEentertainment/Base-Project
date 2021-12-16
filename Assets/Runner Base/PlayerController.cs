@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
             }
             else DOTween.To(() => smoothMove, x => smoothMove = x, 0, delay).SetId("turn");
 
-            offsetX += smoothMove * Time.fixedDeltaTime;
+            offsetX += (smoothMove * swipeSpeed) * Time.fixedDeltaTime;
             offsetX = Mathf.Clamp(offsetX, -xLimit, xLimit);
 
         }
