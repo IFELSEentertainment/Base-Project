@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using Base;
 using Base.UI;
 using UnityEngine;
-public class ClickerButtonManager : MonoBehaviour {
+public class ClickerManager : MonoBehaviour {
 
-    public List<ClickerUpgrade> Upgrades;
+    public static ClickerManager instance;
 
+    private void Awake() {
+        if (instance == null) instance = this;
+        else Destroy(this.gameObject);
+    }
+
+    void OnDisable() {
+        instance = null;
+    }
+
+    List<ClickerUpgrade> Upgrades;
+    private Dictionary<Enum_ClickerUpgrades, ClickerUpgrade> upgradesDic;
     private void Start() {
+        Upgrades = ExtentionFunctions.FindAssetsByType<ClickerUpgrade>();
         Upgrades.ForEach(t => t.Setup());
         GUIManager.GetPanel(Enum_Menu_PlayerOverlayComponent.UpgradesPanel).DeactivatePart();
         GUIManager.GetButton(Enum_Menu_PlayerOverlayComponent.OpenUpgradesPanel).AddFunction(OpenPanel);
@@ -21,6 +34,9 @@ public class ClickerButtonManager : MonoBehaviour {
     void ClosePanel() {
         GUIManager.GetPanel(Enum_Menu_PlayerOverlayComponent.UpgradesPanel).DeactivatePart();
         GUIManager.GetButton(Enum_Menu_PlayerOverlayComponent.OpenUpgradesPanel).ActivatePart();
-        // GUIManager.GetButton(Enum_Menu_PlayerOverlayComponent.ClosePanelButton).DeactivatePart();
+    }
+    
+    public ClickerUpgrade GetUpgrade(in Enum_ClickerUpgrades toPullEnum) {
+        return upgradesDic[toPullEnum];
     }
 }

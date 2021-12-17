@@ -1,0 +1,1 @@
+public enum Enum_ClickerUpgrades{ Upgrade_1, Upgrade_2, Upgrade_3, Upgrade_4, Upgrade_5, Upgrade_6}

@@ -251,6 +251,20 @@ namespace Base {
             return Directory.GetParent(originalPath).ToString().Replace("\\", "/");
         }
 
+        public static string FindAssetPath<T>() where T : UnityEngine.Object {
+            string assetPath = "";
+            string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
+            for( int i = 0; i < guids.Length; i++ )
+            {
+                assetPath = AssetDatabase.GUIDToAssetPath( guids[i] );
+                T asset = AssetDatabase.LoadAssetAtPath<T>( assetPath );
+                if( asset != null ) {
+                    assetPath = assetPath.Replace("\\", "/");
+                }
+            }
+            return assetPath;
+        }
+
         #endregion
 
         #region Scriptable Object Extentions
@@ -282,6 +296,13 @@ namespace Base {
 
         public static bool SaveExists(this ScriptableObjectSaveInfo obj) {
             return File.Exists($"{Application.persistentDataPath}/{obj.foldername}/{obj.filename}.scs");
+        }
+
+        public static void ClearScriptableObject(this ScriptableObjectSaveInfo obj) {
+            if (obj.SaveExists()) {
+                string path = $"{Application.persistentDataPath}/{obj.foldername}/{obj.filename}.scs";
+                File.Delete(path);
+            }
         }
         
 

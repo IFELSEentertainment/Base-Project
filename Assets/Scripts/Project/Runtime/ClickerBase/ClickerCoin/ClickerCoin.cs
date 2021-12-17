@@ -13,8 +13,6 @@ public class ClickerCoin : SerializedScriptableObject {
     [SerializeField] Enum_Menu_PlayerOverlayComponent PerClickEnum;
     [SerializeField] Enum_Menu_PlayerOverlayComponent PerSecondEnum;
 
-    
-    
     public float MainMoney;
     public ATFloat IncomePerClick;
     public ATFloat IncomePerSecond;
@@ -22,6 +20,8 @@ public class ClickerCoin : SerializedScriptableObject {
     TextMeshProUGUI mainMoneyText;
     TextMeshProUGUI perClickText;
     TextMeshProUGUI perSecondText;
+
+    public ScriptableObjectSaveInfo info;
 
     public void Setup() {
         mainMoneyText = GUIManager.GetText(MainMoneyEnum).TextComponent;
@@ -55,4 +55,27 @@ public class ClickerCoin : SerializedScriptableObject {
         perSecondText.text = $"+{IncomePerSecond.Value.ToString("0")}PS";
     }
 
+    public void SaveSO() {
+        if (info == null) {
+            info = new ScriptableObjectSaveInfo(this, "Coins", "MainCoin");
+        }
+        else {
+            info.ModifyInfo(this, "Coins","MainCoin");
+        }
+        info.SaveScriptableObject();
+    }
+
+    public void LoadSO() {
+        info.LoadScriptableObject();
+    }
+
+    [Button]
+    public void DeleteSaves() {
+        MainMoney = 0;
+        IncomePerClick = new ATFloat(1);
+        IncomePerSecond = new ATFloat(0);
+        info.ClearScriptableObject();
+        info.SaveScriptableObject();
+    }
+    
 }

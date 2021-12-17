@@ -38,6 +38,7 @@ namespace Base.UI {
         #endregion
 
         #endregion
+        
         #region Properties
 
         public static B_UI_ManagerMainFrame instance;
@@ -50,6 +51,7 @@ namespace Base.UI {
         [FoldoutGroup("Editor Functions")]
         [SerializeField] public List<B_UI_MenuSubFrame> Subframes;
 
+        
         #endregion
 
         #region Editor

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Upgrade_1
   m_EditorClassIdentifier: 
   ButtonEnum: 6
+  Tier: 0
   UpgradeType: 0
   Cost:
-    BaseValue: 250
+    BaseValue: 750
   UpgradeAmount:
-    Order: 0
-    Value: 10
+    Order: 100
+    Value: 30
     Type: 100
   Curve:
     serializedVersion: 2
@@ -49,5 +50,5 @@ MonoBehaviour:
   coin: {fileID: 11400000, guid: f328e0543408f834e8a957dc808a2ee5, type: 2}
   SaveInfo:
     obj: {fileID: 11400000}
-    foldername: Upgrades
+    foldername: ClickerUpgrades
     filename: Upgrade_1

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Upgrade_4
   m_EditorClassIdentifier: 
   ButtonEnum: 9
-  UpgradeType: 1
+  Tier: 1
+  UpgradeType: 0
   Cost:
-    BaseValue: 885000
+    BaseValue: 12000
   UpgradeAmount:
-    Order: 0
-    Value: 750
+    Order: 100
+    Value: 60
     Type: 100
   Curve:
     serializedVersion: 2
@@ -26,18 +27,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -45,5 +46,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Limit: 100
-  UseTimes: 0
+  UseTimes: 1
   coin: {fileID: 11400000, guid: f328e0543408f834e8a957dc808a2ee5, type: 2}
+  SaveInfo:
+    obj: {fileID: 11400000}
+    foldername: ClickerUpgrades
+    filename: Upgrade_4

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Base;
 using Base.UI;
 using UnityEngine;
@@ -25,7 +26,9 @@ public class ClickerPlayer : MonoBehaviour {
 
     private void Start() {
         GUIManager.GetText(Enum_Menu_PlayerOverlayComponent.PlayerMainMoney).ActivatePart();
+        Coin.LoadSO();
         Coin.Setup();
+        
     }
 
     private void Update() {
@@ -33,12 +36,13 @@ public class ClickerPlayer : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             if(EventSystem.current.IsPointerOverGameObject()) return;
             Coin.IncreaseMainMoney(Coin.IncomePerClick.Value);
-            UpdateCurrentMoneyUI();
+            Coin.IncreaseMainMoney(50);
         }
     }
 
     private void OnDestroy() {
         instance = null;
+        // Coin.SaveSO();
     }
 
     void ActivatePlayer() {
@@ -67,5 +71,9 @@ public class ClickerPlayer : MonoBehaviour {
         GUIManager.GetText(Enum_Menu_PlayerOverlayComponent.PlayerMainMoney).ChangeText($"{Coin.MainMoney.ToString("0")}");
 
     }
+    
+    //Tüm bilgiler runtime sırasında ulaşılabilir olacak
+    
+    
 
 }

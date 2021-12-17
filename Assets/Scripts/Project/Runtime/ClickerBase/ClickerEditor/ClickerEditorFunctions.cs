@@ -23,6 +23,7 @@ public class ClickerEditorFunctions {
     public ClickerEditorFunctions(OdinMenuTree tree) {
         allUpgrades = new List<ClickerUpgrade>();
         allUpgrades = ExtentionFunctions.FindAssetsByType<ClickerUpgrade>();
+        tree.AddAssetAtPath("Master", ExtentionFunctions.FindAssetPath<ClickerUpgradeMaster>());
         if(allUpgrades.IsNullOrEmpty()) return;
     }
 
@@ -30,3 +31,4 @@ public class ClickerEditorFunctions {
         Upgrade1 = Upgrade;
     }
 }
+

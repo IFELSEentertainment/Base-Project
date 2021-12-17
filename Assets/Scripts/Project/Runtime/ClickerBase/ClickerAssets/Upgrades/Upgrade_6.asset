@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aca20a3473754493b8ca3a5bf8142897, type: 3}
-  m_Name: Upgrade_3
+  m_Name: Upgrade_6
   m_EditorClassIdentifier: 
-  ButtonEnum: 8
-  Tier: 1
+  ButtonEnum: 11
+  Tier: 2
   UpgradeType: 0
   Cost:
-    BaseValue: 6000
+    BaseValue: 108000
   UpgradeAmount:
     Order: 100
-    Value: 30
+    Value: 540
     Type: 100
   Curve:
     serializedVersion: 2
@@ -51,4 +51,4 @@ MonoBehaviour:
   SaveInfo:
     obj: {fileID: 11400000}
     foldername: ClickerUpgrades
-    filename: Upgrade_3
+    filename: Upgrade_6

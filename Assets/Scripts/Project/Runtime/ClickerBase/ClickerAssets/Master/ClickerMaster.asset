@@ -12,4 +12,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb51a128977465eb323270cd060b922, type: 3}
   m_Name: ClickerMaster
   m_EditorClassIdentifier: 
-  BaseModifier: 1
+  BaseCostMulti: 1
+  BaseCostValue: 750
+  BaseUpgradeMulti: 1
+  BaseUpgradeValue: 30
+  BaseCostCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  BaseUpgradeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Upgrades:
+  - {fileID: 11400000, guid: a631f41eaadcd7846acf6f6fff094f19, type: 2}
+  - {fileID: 11400000, guid: 4d7c632b253d72e419473e3bdf7b3857, type: 2}
+  - {fileID: 11400000, guid: 45bf30f4cbfc9404c9f9eeab808c706a, type: 2}
+  - {fileID: 11400000, guid: ec0755db2c8d3664ea118bd1662345fe, type: 2}
+  - {fileID: 11400000, guid: bf5bc84cbb9fd34489a56e74d62301e0, type: 2}
+  - {fileID: 11400000, guid: bb943ecc45f4f344e89ac7c9b0ab65d1, type: 2}

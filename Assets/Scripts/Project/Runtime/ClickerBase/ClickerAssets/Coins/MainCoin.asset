@@ -24,8 +24,12 @@ MonoBehaviour:
   MainMoneyEnum: 0
   PerClickEnum: 1
   PerSecondEnum: 2
-  MainMoney: 0
+  MainMoney: 133
   IncomePerClick:
-    BaseValue: 5
+    BaseValue: 1
   IncomePerSecond:
-    BaseValue: 2
+    BaseValue: 0
+  info:
+    obj: {fileID: 11400000}
+    foldername: 
+    filename: 
