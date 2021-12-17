@@ -1,6 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
+using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 namespace Base {
     public static class ExtentionFunctions {
@@ -207,5 +213,121 @@ namespace Base {
         
 
         #endregion
+
+        #region AssetDatabase Extentions
+
+        public static List<T> FindAssetsByType<T>() where T : UnityEngine.Object
+        {
+            List<T> assets = new List<T>();
+            string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
+            for( int i = 0; i < guids.Length; i++ )
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath( guids[i] );
+                T asset = AssetDatabase.LoadAssetAtPath<T>( assetPath );
+                if( asset != null )
+                {
+                    assets.Add(asset);
+                }
+            }
+            return assets;
+        }
+
+        public static List<string> FindAssetsPathByType<T>() where T : UnityEngine.Object {
+            List<string> assets = new List<string>();
+            string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
+            for( int i = 0; i < guids.Length; i++ )
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath( guids[i] );
+                T asset = AssetDatabase.LoadAssetAtPath<T>( assetPath );
+                if( asset != null )
+                {
+                    assets.Add(assetPath);
+                }
+            }
+            return assets;
+        }
+
+        public static string FindAssetParenthPath(this string originalPath) {
+            return Directory.GetParent(originalPath).ToString().Replace("\\", "/");
+        }
+
+        public static string FindAssetPath<T>() where T : UnityEngine.Object {
+            string assetPath = "";
+            string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
+            for( int i = 0; i < guids.Length; i++ )
+            {
+                assetPath = AssetDatabase.GUIDToAssetPath( guids[i] );
+                T asset = AssetDatabase.LoadAssetAtPath<T>( assetPath );
+                if( asset != null ) {
+                    assetPath = assetPath.Replace("\\", "/");
+                }
+            }
+            return assetPath;
+        }
+
+        #endregion
+
+        #region Scriptable Object Extentions
+
+        #region Save Extentions
+
+        public static void SaveScriptableObject(this ScriptableObjectSaveInfo obj) {
+            string path = $"{Application.persistentDataPath}/{obj.foldername}";
+            if (!Directory.Exists(path)) {
+                Directory.CreateDirectory(path);
+            }
+            path += $"/{obj.filename}.scs";
+            string saveData = JsonUtility.ToJson(obj.obj, true);
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(path);
+            bf.Serialize(file, saveData);
+            file.Close();
+        }
+
+        public static void LoadScriptableObject(this ScriptableObjectSaveInfo obj) {
+            if (obj.SaveExists()) {
+                BinaryFormatter bf = new BinaryFormatter();
+                string path = $"{Application.persistentDataPath}/{obj.foldername}/{obj.filename}.scs";
+                FileStream file = File.Open(path, FileMode.Open);
+                JsonUtility.FromJsonOverwrite(bf.Deserialize(file).ToString(), obj.obj);
+                file.Close();
+            }
+        }
+
+        public static bool SaveExists(this ScriptableObjectSaveInfo obj) {
+            return File.Exists($"{Application.persistentDataPath}/{obj.foldername}/{obj.filename}.scs");
+        }
+
+        public static void ClearScriptableObject(this ScriptableObjectSaveInfo obj) {
+            if (obj.SaveExists()) {
+                string path = $"{Application.persistentDataPath}/{obj.foldername}/{obj.filename}.scs";
+                File.Delete(path);
+            }
+        }
+        
+
+        #endregion
+
+        #endregion
     }
+}
+
+[Serializable]
+public class ScriptableObjectSaveInfo {
+    [HideInInspector] public ScriptableObject obj;
+    public string foldername, filename;
+    public ScriptableObjectSaveInfo(ScriptableObject obj, string foldername, string filename) {
+        this.obj = obj;
+        this.foldername = foldername;
+        this.filename = filename;
+    }
+
+    public void ModifyInfo(ScriptableObject obj, [CanBeNull] string foldername, [CanBeNull] string filename) {
+        if (obj) this.obj = obj;
+        if (foldername.Length > 0) this.foldername = foldername;
+        if (filename.Length > 0) this.filename = filename;
+    }
+    
+    public ScriptableObjectSaveInfo(ScriptableObject scriptableObject) : this(scriptableObject, null, null) { }
+    public ScriptableObjectSaveInfo(ScriptableObject scriptableObject, string filename) : this(scriptableObject, null, filename) { }
 }

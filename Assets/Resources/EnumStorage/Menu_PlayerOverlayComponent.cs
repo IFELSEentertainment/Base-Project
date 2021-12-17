@@ -1,1 +1,1 @@
-public enum Enum_Menu_PlayerOverlayComponent { GameStateShowcase }
+public enum Enum_Menu_PlayerOverlayComponent{ ClickerMainPanelPrefab, PlayerMainMoney, PlayerPerClick, PlayerPerSecond, UpgradesPanel, Background, ClosePanelButton, BTNUpgrade_1, BTNUpgrade_2, BTNUpgrade_3, BTNUpgrade_4, BTNUpgrade_5, BTNUpgrade_6, OpenUpgradesPanel}
