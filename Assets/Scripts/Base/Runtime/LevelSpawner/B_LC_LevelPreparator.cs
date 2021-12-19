@@ -13,7 +13,7 @@ namespace Base {
         }
 
         public void OnLevelInitate() {
-            //B_GM_GameManager.instance.Save.PlayerLevel = levelCount;
+            //Base_GameManager.instance.Save.PlayerLevel = levelCount;
             SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.PlayerLevel, levelCount);
             Debug.Log("Level Loaded");
         }

@@ -39,27 +39,27 @@ public class EditorInGame : MonoBehaviour {
 
 
             if (GUI.Button(new Rect(0, 175, 200, 50), "On Start", myButtonStyle)) {
-                B_GM_GameManager.instance.CurrentGameState = GameStates.Start;
+                Base_GameManager.instance.CurrentGameState = GameStates.Start;
                 gameStat = "ON START";
             }
 
             if (GUI.Button(new Rect(225, 175, 200, 50), "On Playing", myButtonStyle)) {
-                B_GM_GameManager.instance.CurrentGameState = GameStates.Playing;
+                Base_GameManager.instance.CurrentGameState = GameStates.Playing;
                 gameStat = "ON PLAYING";
             }
 
             if (GUI.Button(new Rect(450, 175, 200, 50), "On Pause", myButtonStyle)) {
-                B_GM_GameManager.instance.CurrentGameState = GameStates.Paused;
+                Base_GameManager.instance.CurrentGameState = GameStates.Paused;
                 gameStat = "ON PAUSE";
             }
 
             if (GUI.Button(new Rect(675, 175, 200, 50), "On Init", myButtonStyle)) {
-                B_GM_GameManager.instance.CurrentGameState = GameStates.Init;
+                Base_GameManager.instance.CurrentGameState = GameStates.Init;
                 gameStat = "ON INIT";
             }
 
             if (GUI.Button(new Rect(900, 175, 200, 50), "On End", myButtonStyle)) {
-                B_GM_GameManager.instance.CurrentGameState = GameStates.End;
+                Base_GameManager.instance.CurrentGameState = GameStates.End;
                 gameStat = "ON END";
             }
 
@@ -82,9 +82,9 @@ public class EditorInGame : MonoBehaviour {
 
             GUI.Label(new Rect(225, 235, 200, 50), "GAME STAT: " + gameStat, titleText);
 
-            if (GUI.Button(new Rect(450, 275, 200, 50), "F. GAME(T)", myButtonStyle)) B_GM_GameManager.instance.ActivateEndgame(true);
+            if (GUI.Button(new Rect(450, 275, 200, 50), "F. GAME(T)", myButtonStyle)) Base_GameManager.instance.ActivateEndgame(true);
 
-            if (GUI.Button(new Rect(675, 275, 200, 50), "F. GAME(F)", myButtonStyle)) B_GM_GameManager.instance.ActivateEndgame(false);
+            if (GUI.Button(new Rect(675, 275, 200, 50), "F. GAME(F)", myButtonStyle)) Base_GameManager.instance.ActivateEndgame(false);
         }
 
         if (GUI.Button(turnButton, turnStat, myButtonStyle)) {

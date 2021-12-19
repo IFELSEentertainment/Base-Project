@@ -5,13 +5,14 @@ using UnityEngine;
 namespace Base {
     public enum GameStates { Init, Start, Paused, Playing, End }
 
-    public enum B_SE_DataTypes { GameFinished, PlayerLevel, TutorialPlayed, PreviewLevel }
-
-    public class B_GM_GameManager : B_M_ManagerBase {
-        public static B_GM_GameManager instance;
+    public class Base_GameManager : B_M_ManagerBase {
+        
+        public static Base_GameManager instance;
+        //Fires when the game state changes
         public static Action OnGameStateChange;
+        //Stores the actual game state
         private GameStates _currentGameState;
-
+        //Controls the save system
         public SaveSystemEditor Save;
         public GameStates CurrentGameState {
             get => _currentGameState;
@@ -44,18 +45,26 @@ namespace Base {
 
         #region Game Management Functions
 
+        /// <summary>
+        /// Starts the game changing the UI and setting the game state to GameStates.Playing
+        /// </summary>
         private void StartGame() {
             B_CES_CentralEventSystem.BTN_OnStartPressed.InvokeEvent();
             instance.CurrentGameState = GameStates.Playing;
             GUIManager.ActivateOnePanel(Enum_MenuTypes.Menu_PlayerOverlay);
         }
 
+        /// <summary>
+        /// Reloads the game without saving any data
+        /// </summary>
         private void RestartLevel() {
             B_CES_CentralEventSystem.BTN_OnRestartPressed.InvokeEvent();
             B_LC_LevelManager.instance.ReloadCurrentLevel();
             GUIManager.ActivateOnePanel(Enum_MenuTypes.Menu_Main, .3f);
         }
-
+        /// <summary>
+        /// Ends the level on press of a button
+        /// </summary>
         private void EndLevel() {
             B_CES_CentralEventSystem.BTN_OnEndGamePressed.InvokeEvent();
             instance.CurrentGameState = GameStates.Start;
@@ -63,6 +72,13 @@ namespace Base {
             B_LC_LevelManager.instance.LoadInNextLevel();
         }
 
+        /// <summary>
+        /// Activates the end game, changes game state and fires signals
+        /// </summary>
+        /// <param name="Success"></param>
+        /// Set true for if player won, false if player lost
+        /// <param name="Delay"></param>
+        /// Set time for the delay on UI. Doesn't effects signals
         public async void ActivateEndgame(bool Success, float Delay = 0) {
             if (CurrentGameState == GameStates.End || CurrentGameState == GameStates.Start) return;
             instance.CurrentGameState = GameStates.End;
@@ -80,62 +96,25 @@ namespace Base {
             Save.SaveAllData();
         }
 
-        private void OnApplicationPause(bool pause) {
-            Save.SaveAllData();
-        }
+        //Uncomment these functions if you want game to save data on pause or quit
 
-        private void OnApplicationQuit() {
-            Save.SaveAllData();
-        }
+        // private void OnApplicationPause(bool pause) {
+        //     Save.SaveAllData();
+        // }
+        //
+        // private void OnApplicationQuit() {
+        //     Save.SaveAllData();
+        // }
 
         #endregion
-
-
-        #region Function Testing
-
-        #endregion Function Testing
     }
 
-    //Will Keep it as an example
-    public class SaveData {
-        public int GameFinished {
-            get => PlayerPrefs.GetInt(B_SE_DataTypes.GameFinished.ToString());
-            set => PlayerPrefs.SetInt(B_SE_DataTypes.GameFinished.ToString(), value);
-        }
 
-        public int PlayerLevel {
-            get => PlayerPrefs.GetInt(B_SE_DataTypes.PlayerLevel.ToString());
-            set => PlayerPrefs.SetInt(B_SE_DataTypes.PlayerLevel.ToString(), value);
-        }
-
-        public int TutorialPlayed {
-            get => PlayerPrefs.GetInt(B_SE_DataTypes.TutorialPlayed.ToString());
-            set => PlayerPrefs.SetInt(B_SE_DataTypes.TutorialPlayed.ToString(), value);
-        }
-
-        public int PreviewLevel {
-            get => PlayerPrefs.GetInt(B_SE_DataTypes.PreviewLevel.ToString());
-            set => PlayerPrefs.SetInt(B_SE_DataTypes.PreviewLevel.ToString(), value);
-        }
-
-        //public int PlayerCoin
-        //{
-        //    get { return PlayerPrefs.GetInt(B_SE_DataTypes.PlayerCoin.ToString()); }
-        //    set { PlayerPrefs.SetInt(B_SE_DataTypes.PlayerCoin.ToString(), value); }
-        //}
-
-        public void PrepareSaveSystem() {
-            CheckExist(B_SE_DataTypes.GameFinished.ToString());
-            CheckExist(B_SE_DataTypes.PlayerLevel.ToString());
-            CheckExist(B_SE_DataTypes.TutorialPlayed.ToString());
-            CheckExist(B_SE_DataTypes.PreviewLevel.ToString());
-            //CheckExist(B_SE_DataTypes.PlayerCoin.ToString());
-        }
-
-        private void CheckExist(string name) {
-            if (PlayerPrefs.HasKey(name)) return;
-            PlayerPrefs.SetInt(name, 0);
+    class MyClass {
+        void MyFunction() {
+            Base_GameManager.instance.ActivateEndgame(true,3f);
         }
     }
-
+    
+    
 }

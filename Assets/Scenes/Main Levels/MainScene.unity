@@ -2830,6 +2830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7d27fb70a04c1458e5e423adae998a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetFrameRate: 60
   HasTutorial: 0
   Managers:
   - {fileID: 1669055302690181986}
