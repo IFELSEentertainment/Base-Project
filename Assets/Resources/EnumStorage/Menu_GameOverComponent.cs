@@ -1,1 +1,1 @@
-public enum Enum_Menu_GameOverComponent{ Background, EndingPanel, SuccessText, BTN_Sucess, NextLevelText, FailText_0, FailText_1, BTN_Fail}
+public enum Enum_Menu_GameOverComponent{ Background, EndingPanel, SuccessText, BTN_Sucess, FailText, BTN_Fail}
