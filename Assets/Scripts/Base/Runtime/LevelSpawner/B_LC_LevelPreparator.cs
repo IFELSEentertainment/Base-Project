@@ -14,7 +14,7 @@ namespace Base {
 
         public void OnLevelInitate() {
             //Base_GameManager.instance.Save.PlayerLevel = levelCount;
-            SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.PlayerLevel, levelCount);
+            SaveSystem.SetData(Enum_MainSave.PlayerLevel, levelCount);
             Debug.Log("Level Loaded");
         }
 

@@ -1,26 +1,30 @@
-﻿namespace Base {
+﻿using System;
+using System.Collections;
+namespace Base {
     public static class SaveSystem {
 
-        public static object GetDataObject(object saveName, object saveEnum) {
-            if (string.IsNullOrEmpty((string)Base_GameManager.instance.Save.GetSaveObject(saveName.ToString()).GetData(saveEnum))) return null;
-            return Base_GameManager.instance.Save.GetSaveObject(saveName.ToString()).GetData(saveEnum);
+        public static SaveObject GetSaveObject<T>(this T saveObject) where T : Enum {
+            return Base_GameManager.instance.Save.GetSaveObject(saveObject);
+        }
+        
+        public static object GetData<T>(this T saveName) where T : Enum {
+            return Base_GameManager.instance.Save.GetData(saveName);
         }
 
-        public static string GetDataString(object saveName, object saveEnum) {
-            if (string.IsNullOrEmpty((string)Base_GameManager.instance.Save.GetSaveObject(saveName.ToString()).GetData(saveEnum))) return null;
-            return Base_GameManager.instance.Save.GetSaveObject(saveName.ToString()).GetData(saveEnum).ToString();
+        public static string GetDataString<T>(this T saveName) where T : Enum {
+            return Base_GameManager.instance.Save.GetData(saveName).ToString();
+        }
+        
+        public static int GetDataInt<T>(this T saveName) where T : Enum {
+            return int.Parse($"{Base_GameManager.instance.Save.GetData(saveName).ToString()}");
+        }
+        
+        public static float GetDataFloat<T>(this T saveName) where T : Enum {
+            return float.Parse(Base_GameManager.instance.Save.GetData(saveName).ToString());
         }
 
-        public static int GetDataInt(object saveName, object saveEnum) {
-            return int.Parse(string.Format("{0}", Base_GameManager.instance.Save.GetSaveObject(saveName.ToString()).GetData(saveEnum)));
-        }
-
-        public static float GetDataFloat(object saveName, object saveEnum) {
-            return float.Parse(Base_GameManager.instance.Save.GetSaveObject(saveName.ToString()).GetData(saveEnum).ToString());
-        }
-
-        public static void SetData(object saveName, object saveEnum, object DataToSave) {
-            Base_GameManager.instance.Save.GetSaveObject(saveName.ToString()).SetData(saveEnum, DataToSave);
+        public static void SetData<T>(this T saveName, object value) where T : Enum  {
+            Base_GameManager.instance.Save.GetSaveObject(saveName).SetData(saveName, value);
         }
     }
 }

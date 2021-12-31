@@ -13,7 +13,6 @@ namespace Base {
         public string SaveName;
         public bool IsPermanent;
         [HideInInspector] public bool Created;
-        //[InfoBox("Enter atleast one data to be able to create a new save")]
         public List<DataHolder> SaveCluster;
         [HideInInspector] public string SaveEnumLocations;
         private Dictionary<string, object> saveDic;
@@ -26,9 +25,7 @@ namespace Base {
         public void SetData(object name, object value) {
             if (saveDic.ContainsKey(name.ToString())) saveDic[name.ToString()] = value.ToString();
         }
-
-        //[ShowIf("Created")]
-        //[Button]
+        
         public void CreateEnums() {
             var _temp = new string[SaveCluster.Count];
             for (var i = 0; i < SaveCluster.Count; i++) {
@@ -86,9 +83,7 @@ namespace Base {
             file.Close();
             return Task.CompletedTask;
         }
-        // Save null check özelliği ekle
-        // Otamatik hale gelebilecek bi özellik
-        // Vector3 alabilecek bi hale gelsin
+
         public Task LoadObjectData() {
             var obj = this;
             var formatter = new BinaryFormatter();

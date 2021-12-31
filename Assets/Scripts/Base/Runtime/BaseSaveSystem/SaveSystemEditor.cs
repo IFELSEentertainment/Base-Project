@@ -12,31 +12,38 @@ using Sirenix.Utilities.Editor;
 namespace Base {
     public class SaveSystemEditor {
 
-        private List<SaveObject> SaveObjects;
-        private readonly Dictionary<string, SaveObject> savesDic;
+        private List<SaveObject> _saveObjects;
+        private readonly Dictionary<string, SaveObject> _savesDic;
 
         public SaveSystemEditor() {
-            SaveObjects = new List<SaveObject>();
-            SaveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
-            savesDic = new Dictionary<string, SaveObject>();
-            for (var i = 0; i < SaveObjects.Count; i++) {
-                SaveObjects[i].LoadThisData();
-                savesDic.Add(SaveObjects[i].SaveName, SaveObjects[i]);
+            _saveObjects = new List<SaveObject>();
+            _saveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
+            
+            _savesDic = new Dictionary<string, SaveObject>();
+
+            for (var i = 0; i < _saveObjects.Count; i++) {
+                _saveObjects[i].LoadThisData();
+                _savesDic.Add(_saveObjects[i].SaveName, _saveObjects[i]);
             }
         }
         public Task SaveSystemStrapping() {
-            SaveObjects = new List<SaveObject>();
-            SaveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
+            _saveObjects = new List<SaveObject>();
+            _saveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
             return Task.CompletedTask;
         }
 
-        public SaveObject GetSaveObject(object obj) {
-            if (savesDic.ContainsKey(obj.ToString())) return savesDic[obj.ToString()];
-            return null;
+        public object GetData(object saveEnum) {
+            return GetSaveObject(saveEnum).GetData(saveEnum);
+        }
+
+        public SaveObject GetSaveObject(object saveEnum) {
+            string type = saveEnum.GetType().ToString().Replace("Enum_", "");
+            if (!_savesDic.ContainsKey(type)) return null;
+            return _savesDic[type];
         }
 
         public void SaveAllData() {
-            foreach (var item in SaveObjects) item.SaveThisData();
+            foreach (var item in _saveObjects) item.SaveThisData();
         }
 
 
@@ -49,10 +56,10 @@ namespace Base {
         public SaveObject NewSaveObject;
 
         public SaveSystemEditor(OdinMenuTree tree) {
-            SaveObjects = new List<SaveObject>();
-            SaveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
-            savesDic = new Dictionary<string, SaveObject>();
-            for (var i = 0; i < SaveObjects.Count; i++) savesDic.Add(SaveObjects[i].SaveName, SaveObjects[i]);
+            _saveObjects = new List<SaveObject>();
+            _saveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
+            _savesDic = new Dictionary<string, SaveObject>();
+            for (var i = 0; i < _saveObjects.Count; i++) _savesDic.Add(_saveObjects[i].SaveName, _saveObjects[i]);
 
             NewSaveObject = ScriptableObject.CreateInstance<SaveObject>();
         }
@@ -71,7 +78,7 @@ namespace Base {
             AssetDatabase.CreateAsset(obj, "Assets/Resources/SaveAssets/" + obj.SaveName + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            SaveObjects.Add(obj);
+            _saveObjects.Add(obj);
             CreateEnums();
             NewSaveObject = ScriptableObject.CreateInstance<SaveObject>();
         }
@@ -89,7 +96,7 @@ namespace Base {
 
 
                 if (!_saveObject.IsPermanent) {
-                    SaveObjects.Remove(_saveObject);
+                    _saveObjects.Remove(_saveObject);
                     Debug.Log(_saveObject.SaveEnumLocations);
                     File.Delete(_saveObject.SaveEnumLocations);
                     AssetDatabase.DeleteAsset(path);
@@ -105,10 +112,10 @@ namespace Base {
         [GUIColor("getGray")]
         [Button]
         public void CreateEnums() {
-            var _temp = new string[SaveObjects.Count];
-            for (var i = 0; i < SaveObjects.Count; i++) {
-                _temp[i] = SaveObjects[i].SaveName;
-                SaveObjects[i].CreateEnums();
+            var _temp = new string[_saveObjects.Count];
+            for (var i = 0; i < _saveObjects.Count; i++) {
+                _temp[i] = _saveObjects[i].SaveName;
+                _saveObjects[i].CreateEnums();
             }
             EnumCreator.CreateEnum("Saves", _temp);
         }

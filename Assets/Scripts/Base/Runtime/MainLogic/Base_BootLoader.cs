@@ -30,13 +30,13 @@ namespace Base {
 #endif
             await B_CES_CentralEventSystem.CentralEventSystemStrapping();
             for (var i = 0; i < Managers.Count; i++) await Managers[i].ManagerStrapping();
-            if (!HasTutorial) SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.TutorialPlayed, 1);
+            if (!HasTutorial) SaveSystem.SetData(Enum_MainSave.TutorialPlayed, 1);
             await VfmEffectsManager.VFXManagerStrapping();
             await EffectsManager.EffectsManagerStrapping();
 
             Base_GameManager.instance.CurrentGameState = GameStates.Start;
 
-            B_LC_LevelManager.instance.LoadInLevel(SaveSystem.GetDataInt(Enum_Saves.MainSave, Enum_MainSave.PlayerLevel));
+            B_LC_LevelManager.instance.LoadInLevel(Enum_MainSave.PlayerLevel.GetDataInt());
             Base_GameManager.instance.Save.SaveAllData();
             GUIManager.ActivateOnePanel(Enum_MenuTypes.Menu_Main, .2f);
             

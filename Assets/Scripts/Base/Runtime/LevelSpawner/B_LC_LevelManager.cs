@@ -24,7 +24,7 @@ namespace Base {
 
         [HideInInspector] public Transform LevelHolder { get; private set; }
 
-        private int tutorialPlayed => SaveSystem.GetDataInt(Enum_Saves.MainSave, Enum_MainSave.TutorialPlayed);
+        private int tutorialPlayed => Enum_MainSave.TutorialPlayed.GetDataInt();
 
         private void OnDestroy() {
             instance = null;
@@ -46,7 +46,7 @@ namespace Base {
             MainLevels = MainLevels.OrderBy(t => t.name).ToList();
             TutorialLevels = TutorialLevels.OrderBy(t => t.name).ToList();
 
-            PreviewLevelIndex = SaveSystem.GetDataInt(Enum_Saves.MainSave, Enum_MainSave.PreviewLevel);
+            PreviewLevelIndex = Enum_MainSave.PreviewLevel.GetDataInt();
             
             B_CES_CentralEventSystem.OnBeforeLevelDisablePositive.AddFunction(SaveOnNextLevel, true);
 
@@ -72,7 +72,7 @@ namespace Base {
         }
 
         public void LoadInNextLevel() {
-            switch (SaveSystem.GetDataInt(Enum_Saves.MainSave, Enum_MainSave.GameFinished)) {
+            switch (Enum_MainSave.GameFinished.GetDataInt()) {
                 case 0:
                     InitateNewLevel(LevelToLoad());
                     break;
@@ -99,19 +99,19 @@ namespace Base {
             switch (tutorialPlayed) {
                 case 0:
                     CurrentLevelIndex = Array.IndexOf(TutorialLevels.ToArray(), levelToInit);
-                    SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.PlayerLevel, CurrentLevelIndex);
-                    SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.PreviewLevel, CurrentLevelIndex);
+                    SaveSystem.SetData(Enum_MainSave.PlayerLevel, CurrentLevelIndex);
+                    SaveSystem.SetData(Enum_MainSave.PreviewLevel, CurrentLevelIndex);
                     OnLevelChangedAction?.Invoke(CurrentLevelIndex);
                     break;
 
                 case 1:
                     CurrentLevelIndex = Array.IndexOf(MainLevels.ToArray(), levelToInit);
-                    SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.PlayerLevel, CurrentLevelIndex);
+                    SaveSystem.SetData(Enum_MainSave.PlayerLevel, CurrentLevelIndex);
                     OnLevelChangedAction?.Invoke(PreviewLevelIndex);
                     break;
             }
             B_CES_CentralEventSystem.OnAfterLevelLoaded.InvokeEvent();
-            SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.PlayerLevel, CurrentLevelIndex);
+            SaveSystem.SetData(Enum_MainSave.PlayerLevel, CurrentLevelIndex);
             ObjectSpawnParent = LevelHolder.GetChild(0);
         }
 
@@ -120,14 +120,14 @@ namespace Base {
                 case 0:
                     if (CurrentLevelIndex + 1 >= TutorialLevels.Count) {
                         CurrentLevelIndex = 0;
-                        SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.TutorialPlayed, 1);
+                        SaveSystem.SetData(Enum_MainSave.TutorialPlayed, 1);
                         return MainLevels[0];
                     }
                     return TutorialLevels[CurrentLevelIndex + 1];
 
                 case 1:
                     if (CurrentLevelIndex + 1 >= MainLevels.Count) {
-                        SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.GameFinished, 1);
+                        SaveSystem.SetData(Enum_MainSave.GameFinished, 1);
                         return RandomSelectedLevel();
                     }
                     return MainLevels[CurrentLevelIndex + 1];
@@ -149,7 +149,7 @@ namespace Base {
         }
 
         private void SaveOnNextLevel() {
-            SaveSystem.SetData(Enum_Saves.MainSave, Enum_MainSave.PreviewLevel, PreviewLevelIndex + 1);
+            SaveSystem.SetData(Enum_MainSave.PreviewLevel, PreviewLevelIndex + 1);
         }
     }
 }

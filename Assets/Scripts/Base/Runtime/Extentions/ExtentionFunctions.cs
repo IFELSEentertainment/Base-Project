@@ -182,6 +182,7 @@ namespace Base {
             if (obj.Length <= 3 && !(obj == null || obj == "Null" || string.IsNullOrEmpty(obj))) return SaveNameViabilityStatus.Incomplete;
             if (obj == null || obj == "Null" || string.IsNullOrEmpty(obj)) return SaveNameViabilityStatus.Null;
             if (obj.Any(char.IsDigit)) return SaveNameViabilityStatus.HasDigits;
+            // if(obj.Any(char.spa))
             return SaveNameViabilityStatus.Viable;
         }
 
