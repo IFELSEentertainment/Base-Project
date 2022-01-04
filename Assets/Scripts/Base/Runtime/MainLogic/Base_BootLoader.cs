@@ -36,7 +36,7 @@ namespace Base {
 
             Base_GameManager.instance.CurrentGameState = GameStates.Start;
 
-            B_LC_LevelManager.instance.LoadInLevel(Enum_MainSave.PlayerLevel.GetDataInt());
+            B_LC_LevelManager.instance.LoadInLevel(Enum_MainSave.PlayerLevel.ToInt());
             Base_GameManager.instance.Save.SaveAllData();
             GUIManager.ActivateOnePanel(Enum_MenuTypes.Menu_Main, .2f);
             

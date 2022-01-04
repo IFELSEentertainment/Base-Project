@@ -26,10 +26,12 @@ namespace Base.UI {
         }
 
         public static void AddSafeArea(this B_UI_MenuSubFrame subFrame) {
+            if(subFrame.GetComponent<SafeArea>()) return;
             subFrame.gameObject.AddComponent<SafeArea>();
         }
         
         public static void AddSafeArea(this UI_CPanelSubframe subPanel) {
+            if(subPanel.GetComponent<SafeArea>()) return;
             subPanel.gameObject.AddComponent<SafeArea>();
         }
 

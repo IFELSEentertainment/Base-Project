@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UnityEngine;
 namespace Base {
     public static class SaveSystem {
 
@@ -11,15 +12,15 @@ namespace Base {
             return Base_GameManager.instance.Save.GetData(saveName);
         }
 
-        public static string GetDataString<T>(this T saveName) where T : Enum {
+        public static string DataToString<T>(this T saveName) where T : Enum {
             return Base_GameManager.instance.Save.GetData(saveName).ToString();
         }
         
-        public static int GetDataInt<T>(this T saveName) where T : Enum {
+        public static int ToInt<T>(this T saveName) where T : Enum {
             return int.Parse($"{Base_GameManager.instance.Save.GetData(saveName).ToString()}");
         }
         
-        public static float GetDataFloat<T>(this T saveName) where T : Enum {
+        public static float ToFloat<T>(this T saveName) where T : Enum {
             return float.Parse(Base_GameManager.instance.Save.GetData(saveName).ToString());
         }
 

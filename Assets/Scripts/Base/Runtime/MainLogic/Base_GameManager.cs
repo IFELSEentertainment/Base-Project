@@ -98,13 +98,13 @@ namespace Base {
 
         //Uncomment these functions if you want game to save data on pause or quit
 
-        // private void OnApplicationPause(bool pause) {
-        //     Save.SaveAllData();
-        // }
-        //
-        // private void OnApplicationQuit() {
-        //     Save.SaveAllData();
-        // }
+        private void OnApplicationPause(bool pause) {
+            Save.SaveAllData();
+        }
+        
+        private void OnApplicationQuit() {
+            Save.SaveAllData();
+        }
 
         #endregion
     }

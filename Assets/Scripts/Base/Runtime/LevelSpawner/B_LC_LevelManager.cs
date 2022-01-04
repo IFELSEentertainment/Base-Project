@@ -24,7 +24,7 @@ namespace Base {
 
         [HideInInspector] public Transform LevelHolder { get; private set; }
 
-        private int tutorialPlayed => Enum_MainSave.TutorialPlayed.GetDataInt();
+        private int tutorialPlayed => Enum_MainSave.TutorialPlayed.ToInt();
 
         private void OnDestroy() {
             instance = null;
@@ -46,7 +46,7 @@ namespace Base {
             MainLevels = MainLevels.OrderBy(t => t.name).ToList();
             TutorialLevels = TutorialLevels.OrderBy(t => t.name).ToList();
 
-            PreviewLevelIndex = Enum_MainSave.PreviewLevel.GetDataInt();
+            PreviewLevelIndex = Enum_MainSave.PreviewLevel.ToInt();
             
             B_CES_CentralEventSystem.OnBeforeLevelDisablePositive.AddFunction(SaveOnNextLevel, true);
 
@@ -72,7 +72,7 @@ namespace Base {
         }
 
         public void LoadInNextLevel() {
-            switch (Enum_MainSave.GameFinished.GetDataInt()) {
+            switch (Enum_MainSave.GameFinished.ToInt()) {
                 case 0:
                     InitateNewLevel(LevelToLoad());
                     break;

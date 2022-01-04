@@ -25,5 +25,5 @@ MonoBehaviour:
   - Name: PreviewLevel
     Value: 0
   - Name: PlayerCoin
-    Value: 500
+    Value: 100
   SaveEnumLocations: Assets/Resources/EnumStorage/MainSave.cs
