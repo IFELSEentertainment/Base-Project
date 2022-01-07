@@ -21,6 +21,7 @@ namespace Base {
         }
 
         public PooledParticle PlayParticle() {
+            ResetParticle();
             _particleSystem.Play();
             return this;
         }
@@ -28,10 +29,15 @@ namespace Base {
         public async Task<PooledParticle> SetLoop(int loopAmount) {
             for (var i = 0; i < loopAmount; i++) {
                 _particleSystem.Stop();
+                ResetParticle();
                 _particleSystem.Play();
                 await Task.Delay((int)_loopDelay * 1000);
             }
             return this;
+        }
+
+        public void ResetParticle() {
+            _particleSystem.Clear();
         }
     }
 }

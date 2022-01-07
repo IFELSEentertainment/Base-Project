@@ -8,7 +8,7 @@ namespace Base {
         #region Variables
 
         public static B_VFM_EffectsManager instance;
-
+        private List<PooledParticle> _usedParticles;
         #endregion
 
         #region Editor Functions
@@ -42,16 +42,26 @@ namespace Base {
             else
                 Destroy(gameObject);
             InitiatePooller(transform);
+            _usedParticles = new List<PooledParticle>();
+            B_CES_CentralEventSystem.OnBeforeLevelLoaded.AddFunction(ResetParticles, true);
             return Task.CompletedTask;
         }
 
         public PooledParticle SpawnAParticle(object enumToPull, Vector3 positionToSpawnIn, [Optional] Quaternion rotationToSpawnIn) {
             var obj = SpawnObjFromPool(enumToPull.ToString(), positionToSpawnIn, rotationToSpawnIn);
+            _usedParticles.Add(obj.GetComponent<PooledParticle>());
             return obj.GetComponent<PooledParticle>();
         }
 
         private void OnDisable() {
             instance = null;
+        }
+
+        void ResetParticles() {
+            if(_usedParticles == null || _usedParticles.Count <= 0) return;
+            _usedParticles.ForEach(t => t.transform.SetParent(transform, false));
+            _usedParticles.ForEach(t => t.ResetParticle());
+            _usedParticles.Clear();
         }
 
         #endregion
