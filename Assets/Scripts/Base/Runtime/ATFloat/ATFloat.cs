@@ -34,14 +34,21 @@ namespace Base {
         }
 
         public virtual void AddModifier(AtModifier mod) {
+            mod.Parent = this;
             isDirty = true;
             statModifiers.Add(mod);
+            statModifiers.Sort(CompareModifierOrder);
+        }
+
+        public virtual void ModifyValue() {
+            isDirty = true;
             statModifiers.Sort(CompareModifierOrder);
         }
 
         public virtual bool RemoveModifier(AtModifier mod) {
             if (statModifiers.Remove(mod)) {
                 isDirty = true;
+                mod.Parent = null;
                 return true;
             }
             return false;
@@ -57,8 +64,16 @@ namespace Base {
                     statModifiers.RemoveAt(i);
                 }
             }
-
             return didRemove;
+        }
+
+        public void RemoveAllModifiers() {
+            // for (int i = statModifiers.Count - 1; i >= 0; i--) {
+            //     isDirty = true;
+            //     statModifiers.RemoveAt(i);
+            // }
+            statModifiers.Clear();
+            isDirty = true;
         }
 
         protected virtual int CompareModifierOrder(AtModifier a, AtModifier b) {
@@ -106,10 +121,17 @@ namespace Base {
     [Serializable]
     public class AtModifier {
         public int Order;
-        public float Value;
-        public AT_AttributeModifierType Type;
+        [SerializeField] private float _value = 100;
+        public float Value {
+            get => _value;
+            set {
+                _value = value;
+                Parent?.ModifyValue();
+            }
+        }
+        public AT_AttributeModifierType Type = AT_AttributeModifierType.Flat;
         public Object Source;
-
+        [HideInInspector] public ATFloat Parent;
         public AtModifier(float value, AT_AttributeModifierType type, int order, object source) {
             Value = value;
             Type = type;
