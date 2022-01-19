@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 namespace Base {
-    public class B_VFM_EffectsManager : B_OPS_Pooler_Base {
+    public class B_VFM_EffectsManager : B_PoolerBase {
         #region Variables
 
         public static B_VFM_EffectsManager instance;
-        private List<PooledParticle> _usedParticles;
+        private List<B_PooledParticle> _usedParticles;
         #endregion
 
         #region Editor Functions
@@ -27,7 +27,7 @@ namespace Base {
                 particleNames.Add(g.name);
                 AddPoolInEditor(g, g.name, 10);
             }
-            EnumCreator.CreateEnum("Particles", particleNames.ToArray());
+            B_EnumCreator.CreateEnum("Particles", particleNames.ToArray());
         }
 
 #endif
@@ -42,15 +42,15 @@ namespace Base {
             else
                 Destroy(gameObject);
             InitiatePooller(transform);
-            _usedParticles = new List<PooledParticle>();
+            _usedParticles = new List<B_PooledParticle>();
             B_CES_CentralEventSystem.OnBeforeLevelLoaded.AddFunction(ResetParticles, true);
             return Task.CompletedTask;
         }
 
-        public PooledParticle SpawnAParticle(object enumToPull, Vector3 positionToSpawnIn, [Optional] Quaternion rotationToSpawnIn) {
+        public B_PooledParticle SpawnAParticle(object enumToPull, Vector3 positionToSpawnIn, [Optional] Quaternion rotationToSpawnIn) {
             var obj = SpawnObjFromPool(enumToPull.ToString(), positionToSpawnIn, rotationToSpawnIn);
-            _usedParticles.Add(obj.GetComponent<PooledParticle>());
-            return obj.GetComponent<PooledParticle>();
+            _usedParticles.Add(obj.GetComponent<B_PooledParticle>());
+            return obj.GetComponent<B_PooledParticle>();
         }
 
         private void OnDisable() {

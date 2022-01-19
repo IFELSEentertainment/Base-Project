@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 namespace Base {
     [Serializable]
-    public class SaveObject : ScriptableObject {
+    public class B_SaveObject : ScriptableObject {
 
         [DisableIf("Created")]
         public string SaveName;
@@ -33,8 +33,8 @@ namespace Base {
                 _temp[i] = SaveCluster[i].Name;
             }
 #if UNITY_EDITOR
-            SaveEnumLocations = EnumCreator.BasePath + SaveName + ".cs";
-            EnumCreator.CreateEnum(SaveName, _temp);
+            SaveEnumLocations = B_EnumCreator.BasePath + SaveName + ".cs";
+            B_EnumCreator.CreateEnum(SaveName, _temp);
 #endif
         }
         [ShowIf("Created")]
@@ -63,13 +63,13 @@ namespace Base {
         }
         //[InfoBox("Deletes the created save save data, not the asset")]
         [ShowIf("Created")]
-        [Button("Delete Save Data")]
+        [Button("Delete bSave Data")]
         public void DeleteThisData() {
             DeleteObjectData();
         }
 
 
-        #region Save and Load Functions
+        #region bSave and Load Functions
 
         public Task SaveObjectData() {
             var obj = this;

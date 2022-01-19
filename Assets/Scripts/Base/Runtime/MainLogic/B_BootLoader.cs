@@ -10,7 +10,7 @@ using Unity.Advertisement.IosSupport;
 
 namespace Base {
     [DefaultExecutionOrder(-100)]
-    public class Base_BootLoader : MonoBehaviour {
+    public class B_BootLoader : MonoBehaviour {
 
         #region Spesific Functions
         /// <summary>
@@ -30,23 +30,20 @@ namespace Base {
 #endif
             await B_CES_CentralEventSystem.CentralEventSystemStrapping();
             for (var i = 0; i < Managers.Count; i++) await Managers[i].ManagerStrapping();
-            if (!HasTutorial) SaveSystem.SetData(Enum_MainSave.TutorialPlayed, 1);
+            if (!HasTutorial) B_SaveSystem.SetData(Enum_MainSave.TutorialPlayed, 1);
             await VfmEffectsManager.VFXManagerStrapping();
-            await EffectsManager.EffectsManagerStrapping();
+            await B_EffectsManager.EffectsManagerStrapping();
 
-            Base_GameManager.instance.CurrentGameState = GameStates.Start;
+            B_GameManager.instance.CurrentGameState = GameStates.Start;
 
-            B_LC_LevelManager.instance.LoadInLevel(Enum_MainSave.PlayerLevel.ToInt());
-            Base_GameManager.instance.Save.SaveAllData();
-            GUIManager.ActivateOnePanel(Enum_MenuTypes.Menu_Main, .2f);
-            
-            IngameEditor = GetComponent<EditorInGame>();
-            IngameEditor.enabled = RuntimeEditor;
+            B_LevelManager.instance.LoadInLevel(Enum_MainSave.PlayerLevel.ToInt());
+            B_GameManager.instance.bSave.SaveAllData();
+            B_GUIManager.ActivateOnePanel(Enum_MenuTypes.Menu_Main, .2f);
 
             if (TargetFrameRate < 0) {
                 TargetFrameRate = -1;
             }
-            
+            Application.targetFrameRate = TargetFrameRate;
         }
 
         #endregion
@@ -61,7 +58,7 @@ namespace Base {
         public void SetupManagerEnums() {
             var names = new string[Managers.Count];
             for (var i = 0; i < Managers.Count; i++) names[i] = Managers[i].GetType().Name;
-            EnumCreator.CreateEnum("Managers", names);
+            B_EnumCreator.CreateEnum("Managers", names);
         }
 
         #endregion
@@ -71,10 +68,9 @@ namespace Base {
         [TabGroup("Master", "Game Aspect Control")]
         [SerializeField] private bool HasTutorial;
         [TabGroup("Master", "Editor Control")]
-        [SerializeField] private List<B_M_ManagerBase> Managers;
+        [SerializeField] private List<B_ManagerBase> Managers;
         [TabGroup("Master", "Editor Control")]
-        [SerializeField] private B_VFM_EffectsManager VfmEffectsManager; 
-        private EditorInGame IngameEditor;
+        [SerializeField] private B_VFM_EffectsManager VfmEffectsManager;
         [TabGroup("Master", "Editor Control")]
         [SerializeField] private bool RuntimeEditor;
 

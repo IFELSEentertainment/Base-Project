@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DG.Tweening;
 namespace Base.UI {
-    public class UI_Default : B_UI_MenuSubFrame {
-        public override Task SetupFrame(B_UI_ManagerMainFrame Mainframe) {
+    public class Loading : B_MenuSubFrame {
+        public override Task SetupFrame(B_ManagerMainFrame Mainframe) {
             return base.SetupFrame(Mainframe);
         }
 

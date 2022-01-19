@@ -6,7 +6,7 @@ namespace Base.UI {
         #region Standart Functions
 
         [HideInInspector] public TextMeshProUGUI TextComponent;
-        public override Task SetupComponentSubframe(B_UI_MenuSubFrame Manager) {
+        public override Task SetupComponentSubframe(B_MenuSubFrame Manager) {
             TextComponent = GetComponent<TextMeshProUGUI>();
             return base.SetupComponentSubframe(Manager);
         }

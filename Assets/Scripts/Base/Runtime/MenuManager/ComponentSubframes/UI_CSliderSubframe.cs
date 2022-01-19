@@ -8,7 +8,7 @@ namespace Base.UI {
 
         [HideInInspector] public Slider HandleSlider;
 
-        public override Task SetupComponentSubframe(B_UI_MenuSubFrame Manager) {
+        public override Task SetupComponentSubframe(B_MenuSubFrame Manager) {
             HandleSlider = GetComponent<Slider>();
             return base.SetupComponentSubframe(Manager);
         }

@@ -7,7 +7,7 @@ namespace Base.UI {
         #region Standart Functions
 
         [HideInInspector] public Button Button;
-        public override Task SetupComponentSubframe(B_UI_MenuSubFrame Manager) {
+        public override Task SetupComponentSubframe(B_MenuSubFrame Manager) {
             Button = GetComponent<Button>();
             return base.SetupComponentSubframe(Manager);
         }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 namespace Base {
-    public class B_LC_LevelPreparator : MonoBehaviour {
+    public class B_LevelPreparator : MonoBehaviour {
         private int levelCount;
 
         private void Awake() {
@@ -13,8 +13,8 @@ namespace Base {
         }
 
         public void OnLevelInitate() {
-            //Base_GameManager.instance.Save.PlayerLevel = levelCount;
-            SaveSystem.SetData(Enum_MainSave.PlayerLevel, levelCount);
+            //B_GameManager.instance.bSave.PlayerLevel = levelCount;
+            B_SaveSystem.SetData(Enum_MainSave.PlayerLevel, levelCount);
             Debug.Log("Level Loaded");
         }
 

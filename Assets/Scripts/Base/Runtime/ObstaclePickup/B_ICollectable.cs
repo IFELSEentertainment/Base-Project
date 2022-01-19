@@ -1,5 +1,5 @@
 namespace Base {
-    public interface ICollectable {
+    public interface B_ICollectable {
         void OnPickup(float value);
     }
 }

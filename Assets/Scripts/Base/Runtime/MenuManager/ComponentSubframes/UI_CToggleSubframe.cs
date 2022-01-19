@@ -9,7 +9,7 @@ namespace Base.UI {
 
         [HideInInspector] public Toggle ToggleComponent;
 
-        public override Task SetupComponentSubframe(B_UI_MenuSubFrame Manager) {
+        public override Task SetupComponentSubframe(B_MenuSubFrame Manager) {
             ToggleComponent = GetComponent<Toggle>();
             return base.SetupComponentSubframe(Manager);
         }

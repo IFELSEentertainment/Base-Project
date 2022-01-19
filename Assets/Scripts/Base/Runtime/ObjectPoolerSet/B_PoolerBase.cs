@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 #endif
 
 namespace Base {
-    public abstract class B_OPS_Pooler_Base : MonoBehaviour {
+    public abstract class B_PoolerBase : MonoBehaviour {
         public List<ObjectsToPool> PoolsList;
 
         //Distance from spawn içerisine bir sayı girilmesi lazım

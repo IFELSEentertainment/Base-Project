@@ -9,19 +9,21 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 #endif
 namespace Base.UI {
-    public abstract class B_UI_MenuSubFrame : MonoBehaviour {
+    public abstract class B_MenuSubFrame : MonoBehaviour {
         [SerializeField] private bool SafeArea;
         public Enum_MenuTypes MenuType;
         public List<UI_TComponentsSubframe> SubComponents;
+        
+        
         private Dictionary<string, UI_CButtonTMProSubframe> ButtonDictionary;
         private Dictionary<string, UI_CImageSubframe> ImageDictionary;
         private Dictionary<string, UI_CPanelSubframe> PanelDictionary;
-        private B_UI_ManagerMainFrame Parent;
+        private B_ManagerMainFrame Parent;
         private Dictionary<string, UI_CSliderSubframe> SliderDictionary;
         private Dictionary<string, UI_CTMProGUISubframe> TMProDictionary;
         private Dictionary<string, UI_CToggleSubframe> ToggleDictionary;
 
-        public virtual async Task SetupFrame(B_UI_ManagerMainFrame Mainframe) {
+        public virtual async Task SetupFrame(B_ManagerMainFrame Mainframe) {
             Parent = Mainframe;
 #if UNITY_EDITOR
             SetSubComponents();

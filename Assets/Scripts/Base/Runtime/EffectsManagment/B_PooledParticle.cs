@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 namespace Base {
-    public class PooledParticle : MonoBehaviour, B_OPS_IPooledObject {
+    public class B_PooledParticle : MonoBehaviour, B_OPS_IPooledObject {
 
         private float _loopDelay;
         private ParticleSystem _particleSystem;
@@ -20,13 +20,13 @@ namespace Base {
             _loopDelay = _particleSystem.main.duration;
         }
 
-        public PooledParticle PlayParticle() {
+        public B_PooledParticle PlayParticle() {
             ResetParticle();
             _particleSystem.Play();
             return this;
         }
 
-        public async Task<PooledParticle> SetLoop(int loopAmount) {
+        public async Task<B_PooledParticle> SetLoop(int loopAmount) {
             for (var i = 0; i < loopAmount; i++) {
                 _particleSystem.Stop();
                 ResetParticle();

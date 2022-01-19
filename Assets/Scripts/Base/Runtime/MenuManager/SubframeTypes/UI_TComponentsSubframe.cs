@@ -9,12 +9,12 @@ namespace Base.UI {
         
         [HideInInspector] public string ComponentParticularName;
         [HideInInspector] public string EnumName;
-        [SerializeField] private B_UI_MenuSubFrame Parent;
+        [SerializeField] private B_MenuSubFrame Parent;
 
         private bool Moved;
         private Vector3 OriginalPosition;
 
-        public virtual Task SetupComponentSubframe(B_UI_MenuSubFrame Manager) {
+        public virtual Task SetupComponentSubframe(B_MenuSubFrame Manager) {
             Parent = Manager;
             ComponentParticularName = gameObject.name;
             OriginalPosition = GetComponent<RectTransform>().localPosition;

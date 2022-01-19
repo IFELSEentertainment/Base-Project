@@ -9,8 +9,8 @@ using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 namespace Base {
-    public static class ExtentionFunctions {
-        
+    public static class B_ExtentionFunctions {
+
         #region Recttransform Extentions
 
         //Use this to move Pesky uı objects
@@ -20,7 +20,7 @@ namespace Base {
         }
 
         #endregion Recttransform Extentions
-        
+
         #region Vector3 Extentions
 
         public static Vector3 GetWorldPosition(Ray ray, LayerMask Mask) {
@@ -48,7 +48,7 @@ namespace Base {
             _temp.y -= yMinus;
             return (objectToPush - _temp) * force;
         }
-        
+
         public static Vector3 FindCenterInGroup<T>(this IEnumerable<T> ObjectGroup) where T : MonoBehaviour {
             MonoBehaviour[] objects = ObjectGroup.ToArray();
             if (objects.Length == 0)
@@ -57,8 +57,8 @@ namespace Base {
                 return objects[0].transform.position;
             var bounds = new Bounds(objects[0].transform.position, Vector3.zero);
             for (var i = 1; i < objects.Length; i++) {
-                if(objects[i] != null)
-                    bounds.Encapsulate(objects[i].transform.position); 
+                if (objects[i] != null)
+                    bounds.Encapsulate(objects[i].transform.position);
             }
             return bounds.center;
         }
@@ -118,13 +118,13 @@ namespace Base {
         }
 
         #endregion Math Extentions
-        
+
         #region Transform Extentions
 
         public static void ResizeObject(this Transform objToEnlarge, float Size) {
             objToEnlarge.localScale = new Vector3(Size, Size, Size);
         }
-        
+
         public static IEnumerable GetAllChilrenOnTransform(this Transform transform) {
             List<Transform> transforms = new List<Transform>();
             foreach (Transform item in transform) {
@@ -137,10 +137,10 @@ namespace Base {
             if (transform.childCount <= 0) return;
             for (int i = transform.childCount - 1; i >= 0; i--) {
                 #if UNITY_EDITOR
-                if(!Application.isPlaying)
+                if (!Application.isPlaying)
                     GameObject.DestroyImmediate(transform.GetChild(i).gameObject);
                 #endif
-                if(Application.isPlaying)
+                if (Application.isPlaying)
                     GameObject.Destroy(transform.GetChild(i).gameObject);
             }
         }
@@ -175,7 +175,7 @@ namespace Base {
                 return float.Parse(s);
             return 0;
         }
-        
+
         public enum SaveNameViabilityStatus { Viable, Null, Incomplete, HasDigits }
         public static SaveNameViabilityStatus IsVaibleForSave(this string obj) {
 
@@ -208,62 +208,70 @@ namespace Base {
 
         #endregion String Extentions
 
-        #region Ienum Extentions
-
-        
-        
-
-        #endregion
-
         #region AssetDatabase Extentions
 
-        public static List<T> FindAssetsByType<T>() where T : UnityEngine.Object
-        {
+        /// <summary>
+        /// Only works on editor
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<T> FindAssetsByType<T>() where T : UnityEngine.Object {
+            #if UNITY_EDITOR
             List<T> assets = new List<T>();
             string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
-            for( int i = 0; i < guids.Length; i++ )
-            {
-                string assetPath = AssetDatabase.GUIDToAssetPath( guids[i] );
-                T asset = AssetDatabase.LoadAssetAtPath<T>( assetPath );
-                if( asset != null )
-                {
+            for (int i = 0; i < guids.Length; i++) {
+                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                T asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+                if (asset != null) {
                     assets.Add(asset);
                 }
             }
             return assets;
+            #else
+            return null;
+            #endif
         }
 
         public static List<string> FindAssetsPathByType<T>() where T : UnityEngine.Object {
+            #if UNITY_EDITOR
             List<string> assets = new List<string>();
             string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
-            for( int i = 0; i < guids.Length; i++ )
-            {
-                string assetPath = AssetDatabase.GUIDToAssetPath( guids[i] );
-                T asset = AssetDatabase.LoadAssetAtPath<T>( assetPath );
-                if( asset != null )
-                {
+            for (int i = 0; i < guids.Length; i++) {
+                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                T asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+                if (asset != null) {
                     assets.Add(assetPath);
                 }
             }
             return assets;
+            #else
+            return null;
+            #endif
         }
 
         public static string FindAssetParenthPath(this string originalPath) {
+            #if UNITY_EDITOR
             return Directory.GetParent(originalPath).ToString().Replace("\\", "/");
+            #else
+            return null;
+            #endif
         }
 
         public static string FindAssetPath<T>() where T : UnityEngine.Object {
+            #if UNITY_EDITOR
+
             string assetPath = "";
             string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
-            for( int i = 0; i < guids.Length; i++ )
-            {
-                assetPath = AssetDatabase.GUIDToAssetPath( guids[i] );
-                T asset = AssetDatabase.LoadAssetAtPath<T>( assetPath );
-                if( asset != null ) {
+            for (int i = 0; i < guids.Length; i++) {
+                assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                T asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+                if (asset != null) {
                     assetPath = assetPath.Replace("\\", "/");
                 }
             }
             return assetPath;
+            #else
+            #endif
         }
 
         #endregion
@@ -305,10 +313,57 @@ namespace Base {
                 File.Delete(path);
             }
         }
-        
 
         #endregion
 
+        #endregion
+
+        #region Coroutine Extentions
+
+        /// <summary>
+        /// Simply Runs the enumarator without any return
+        /// </summary>
+        /// <param name="enumerator"></param>
+        public static Coroutine RunCoroutine(this IEnumerator enumerator) {
+            return B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator);
+        }
+
+        /// <summary>
+        /// Runs the enumarator with delay without any return
+        /// </summary>
+        /// <param name="enumerator"></param>
+        /// <param name="delay"></param>
+        public static Coroutine RunCoroutine(this IEnumerator enumerator, float delay) {
+            return B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator, delay);
+        }
+
+        /// <summary>
+        /// Runs the enumarator
+        /// </summary>
+        /// <param name="enumerator"></param>
+        /// <param name="coroutine"></param>
+        public static void RunCoroutine(this IEnumerator enumerator, Coroutine coroutine) {
+            B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator, coroutine);
+        }
+
+        /// <summary>
+        /// Runs the enumarator with delay
+        /// </summary>
+        /// <param name="enumerator"></param>
+        /// <param name="coroutine"></param>
+        /// <param name="delay"></param>
+        public static void RunCoroutine(this IEnumerator enumerator, Coroutine coroutine, float delay) {
+            B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator, coroutine, delay);
+        }
+
+        /// <summary>
+        /// Runs the function in a coroutine
+        /// </summary>
+        /// <param name="enumerator"></param>
+        /// <param name="delay"></param>
+        public static Coroutine RunWithDelay(Action method, float delay) {
+            return B_CR_CoroutineRunner.instance.CQ.RunFunctionWithDelay(method, delay);
+        }
         #endregion
     }
 }
@@ -328,7 +383,7 @@ public class ScriptableObjectSaveInfo {
         if (foldername.Length > 0) this.foldername = foldername;
         if (filename.Length > 0) this.filename = filename;
     }
-    
+
     public ScriptableObjectSaveInfo(ScriptableObject scriptableObject) : this(scriptableObject, null, null) { }
     public ScriptableObjectSaveInfo(ScriptableObject scriptableObject, string filename) : this(scriptableObject, null, filename) { }
 }

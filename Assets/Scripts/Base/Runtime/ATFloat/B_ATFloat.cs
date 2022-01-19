@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = System.Object;
 namespace Base {
     [Serializable]
-    public class ATFloat {
+    public class B_ATFloat {
         public float BaseValue;
         protected bool isDirty = true;
         protected float lastBaseValue = float.MinValue;
@@ -21,25 +21,25 @@ namespace Base {
             }
         }
 
-        protected readonly ReadOnlyCollection<AtModifier> StatModifiers;
-        protected readonly List<AtModifier> statModifiers;
+        protected readonly ReadOnlyCollection<B_ATModifier> StatModifiers;
+        protected readonly List<B_ATModifier> statModifiers;
 
-        public ATFloat() {
-            statModifiers = new List<AtModifier>();
+        public B_ATFloat() {
+            statModifiers = new List<B_ATModifier>();
             StatModifiers = statModifiers.AsReadOnly();
         }
 
-        public ATFloat(float baseValue) : this() {
+        public B_ATFloat(float baseValue) : this() {
             BaseValue = baseValue;
         }
 
-        public virtual void AddModifier(AtModifier mod) {
+        public virtual void AddModifier(B_ATModifier mod) {
             isDirty = true;
             statModifiers.Add(mod);
             statModifiers.Sort(CompareModifierOrder);
         }
 
-        public virtual bool RemoveModifier(AtModifier mod) {
+        public virtual bool RemoveModifier(B_ATModifier mod) {
             if (statModifiers.Remove(mod)) {
                 isDirty = true;
                 return true;
@@ -61,7 +61,7 @@ namespace Base {
             return didRemove;
         }
 
-        protected virtual int CompareModifierOrder(AtModifier a, AtModifier b) {
+        protected virtual int CompareModifierOrder(B_ATModifier a, B_ATModifier b) {
             if (a.Order < b.Order)
                 return -1;
             else if (a.Order > b.Order)
@@ -75,7 +75,7 @@ namespace Base {
 
             for (int i = 0; i < statModifiers.Count; i++) {
 
-                AtModifier mod = statModifiers[i];
+                B_ATModifier mod = statModifiers[i];
 
                 if (mod.Type == AT_AttributeModifierType.Flat) {
                     finalValue += mod.Value;
@@ -104,21 +104,21 @@ namespace Base {
 
     }
     [Serializable]
-    public class AtModifier {
+    public class B_ATModifier {
         public int Order;
         public float Value;
         public AT_AttributeModifierType Type;
         public Object Source;
 
-        public AtModifier(float value, AT_AttributeModifierType type, int order, object source) {
+        public B_ATModifier(float value, AT_AttributeModifierType type, int order, object source) {
             Value = value;
             Type = type;
             Order = order;
             Source = source;
         }
 
-        public AtModifier(float value, AT_AttributeModifierType type) : this(value, type, (int)type, null) { }
-        public AtModifier(float value, AT_AttributeModifierType type, int order) : this(value, type, order, null) { }
-        public AtModifier(float value, AT_AttributeModifierType type, object source) : this(value, type, (int)type, source) { }
+        public B_ATModifier(float value, AT_AttributeModifierType type) : this(value, type, (int)type, null) { }
+        public B_ATModifier(float value, AT_AttributeModifierType type, int order) : this(value, type, order, null) { }
+        public B_ATModifier(float value, AT_AttributeModifierType type, object source) : this(value, type, (int)type, source) { }
     }
 }

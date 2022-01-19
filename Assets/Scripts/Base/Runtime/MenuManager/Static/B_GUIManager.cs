@@ -4,19 +4,19 @@ using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
 namespace Base.UI {
-    public static class GUIManager {
-        public static UI_Gameover GameOver;
-        public static UI_Loading Loading;
-        public static UI_Main Main;
-        public static UI_Paused Paused;
-        public static UI_PlayerOverlay PlayerOverlay;
+    public static class B_GUIManager {
+        public static Gameover GameOver;
+        public static Loading Loading;
+        public static Main Main;
+        public static Paused Paused;
+        public static PlayerOverlay PlayerOverlay;
 
         public static void SetupStaticFrame() {
-            GameOver = B_UI_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_GameOver).ToArray()[0].GetComponent<UI_Gameover>();
-            Loading = B_UI_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_Loading).ToArray()[0].GetComponent<UI_Loading>();
-            Main = B_UI_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_Main).ToArray()[0].GetComponent<UI_Main>();
-            Paused = B_UI_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_Paused).ToArray()[0].GetComponent<UI_Paused>();
-            PlayerOverlay = B_UI_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_PlayerOverlay).ToArray()[0].GetComponent<UI_PlayerOverlay>();
+            GameOver = B_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_GameOver).ToArray()[0].GetComponent<Gameover>();
+            Loading = B_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_Loading).ToArray()[0].GetComponent<Loading>();
+            Main = B_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_Main).ToArray()[0].GetComponent<Main>();
+            Paused = B_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_Paused).ToArray()[0].GetComponent<Paused>();
+            PlayerOverlay = B_ManagerMainFrame.instance.Subframes.Where(t => t.MenuType == Enum_MenuTypes.Menu_PlayerOverlay).ToArray()[0].GetComponent<PlayerOverlay>();
         }
         public static void FlushData() {
             GameOver = null;
@@ -25,7 +25,7 @@ namespace Base.UI {
             PlayerOverlay = null;
         }
 
-        public static void AddSafeArea(this B_UI_MenuSubFrame subFrame) {
+        public static void AddSafeArea(this B_MenuSubFrame subFrame) {
             if(subFrame.GetComponent<SafeArea>()) return;
             subFrame.gameObject.AddComponent<SafeArea>();
         }

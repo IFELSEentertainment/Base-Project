@@ -2,11 +2,11 @@
 using DG.Tweening;
 using UnityEngine;
 namespace Base.UI {
-    public class UI_Gameover : B_UI_MenuSubFrame {
+    public class Gameover : B_MenuSubFrame {
         [SerializeField] private GameObject SuccessUI;
         [SerializeField] private GameObject FailUI;
 
-        public override Task SetupFrame(B_UI_ManagerMainFrame Mainframe) {
+        public override Task SetupFrame(B_ManagerMainFrame Mainframe) {
             return base.SetupFrame(Mainframe);
         }
 

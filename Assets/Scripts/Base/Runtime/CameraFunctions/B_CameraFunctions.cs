@@ -8,10 +8,10 @@ using UnityEngine;
 namespace Base {
     public enum ActiveVirtualCameras { VirCam1, VirCam2, VirCam3 }
 
-    public class B_CF_Main_CameraFunctions : B_M_ManagerBase {
+    public class B_CameraFunctions : B_ManagerBase {
         #region Properties
 
-        public static B_CF_Main_CameraFunctions instance;
+        public static B_CameraFunctions instance;
 
         [FoldoutGroup("VirtualCameras")]
         public VirCam VirtualCamera1;
@@ -83,7 +83,7 @@ namespace Base {
         }
 
         public void VirtualCameraShake(ActiveVirtualCameras Camera, float Amp, float TimeToShake) {
-            B_CR_CoroutineRunner.instance.CQ.RunCoroutine(VirtualCameras[Camera].coroutine, Shaker(Camera, Amp, TimeToShake));
+            B_CR_CoroutineRunner.instance.CQ.RunCoroutine(Shaker(Camera, Amp, TimeToShake),VirtualCameras[Camera].coroutine);
         }
 
         public void ChangeCameraFOW(ActiveVirtualCameras Camera, float To, float Speed) {

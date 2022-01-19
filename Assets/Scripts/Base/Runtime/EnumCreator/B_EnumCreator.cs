@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 namespace Base {
-    public static class EnumCreator {
+    public static class B_EnumCreator {
 #if UNITY_EDITOR
         public static string BasePath = "Assets/Resources/EnumStorage/";
 

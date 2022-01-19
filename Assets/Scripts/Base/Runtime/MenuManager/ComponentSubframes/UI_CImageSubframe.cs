@@ -5,7 +5,7 @@ namespace Base.UI {
     public class UI_CImageSubframe : UI_TComponentsSubframe {
         [HideInInspector] public Image ThisImage;
 
-        public override Task SetupComponentSubframe(B_UI_MenuSubFrame Manager) {
+        public override Task SetupComponentSubframe(B_MenuSubFrame Manager) {
             ThisImage = GetComponent<Image>();
             return base.SetupComponentSubframe(Manager);
         }

@@ -10,16 +10,16 @@ using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 #endif
 namespace Base {
-    public class SaveSystemEditor {
+    public class B_SaveSystemEditor {
 
-        private List<SaveObject> _saveObjects;
-        private readonly Dictionary<string, SaveObject> _savesDic;
+        private List<B_SaveObject> _saveObjects;
+        private readonly Dictionary<string, B_SaveObject> _savesDic;
 
-        public SaveSystemEditor() {
-            _saveObjects = new List<SaveObject>();
-            _saveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
+        public B_SaveSystemEditor() {
+            _saveObjects = new List<B_SaveObject>();
+            _saveObjects = Resources.LoadAll<B_SaveObject>("SaveAssets").ToList();
             
-            _savesDic = new Dictionary<string, SaveObject>();
+            _savesDic = new Dictionary<string, B_SaveObject>();
 
             for (var i = 0; i < _saveObjects.Count; i++) {
                 _saveObjects[i].LoadThisData();
@@ -27,8 +27,8 @@ namespace Base {
             }
         }
         public Task SaveSystemStrapping() {
-            _saveObjects = new List<SaveObject>();
-            _saveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
+            _saveObjects = new List<B_SaveObject>();
+            _saveObjects = Resources.LoadAll<B_SaveObject>("SaveAssets").ToList();
             return Task.CompletedTask;
         }
 
@@ -36,7 +36,7 @@ namespace Base {
             return GetSaveObject(saveEnum).GetData(saveEnum);
         }
 
-        public SaveObject GetSaveObject(object saveEnum) {
+        public B_SaveObject GetSaveObject(object saveEnum) {
             string type = saveEnum.GetType().ToString().Replace("Enum_", "");
             if (!_savesDic.ContainsKey(type)) return null;
             return _savesDic[type];
@@ -50,18 +50,18 @@ namespace Base {
         #region Editor Functions
 
 #if UNITY_EDITOR
-        [BoxGroup("New Save Object", centerLabel: true, order: 0)]
+        [BoxGroup("New bSave Object", centerLabel: true, order: 0)]
         [InfoBox("$InfoBoxString", "IsntReadyForSave")]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SaveObject NewSaveObject;
+        public B_SaveObject newBSaveObject;
 
-        public SaveSystemEditor(OdinMenuTree tree) {
-            _saveObjects = new List<SaveObject>();
-            _saveObjects = Resources.LoadAll<SaveObject>("SaveAssets").ToList();
-            _savesDic = new Dictionary<string, SaveObject>();
+        public B_SaveSystemEditor(OdinMenuTree tree) {
+            _saveObjects = new List<B_SaveObject>();
+            _saveObjects = Resources.LoadAll<B_SaveObject>("SaveAssets").ToList();
+            _savesDic = new Dictionary<string, B_SaveObject>();
             for (var i = 0; i < _saveObjects.Count; i++) _savesDic.Add(_saveObjects[i].SaveName, _saveObjects[i]);
 
-            NewSaveObject = ScriptableObject.CreateInstance<SaveObject>();
+            newBSaveObject = ScriptableObject.CreateInstance<B_SaveObject>();
         }
 
         [ShowIf("IsReadyForSave")]
@@ -69,7 +69,7 @@ namespace Base {
         [GUIColor("getGreen")]
         [Button]
         public void CreateNewSave() {
-            var obj = NewSaveObject;
+            var obj = newBSaveObject;
             if (obj.SaveName.MakeViable() == "") obj.SaveName = "Empty_Save_Name";
             else obj.SaveName = obj.SaveName.MakeViable();
             obj.name = obj.SaveName;
@@ -80,7 +80,7 @@ namespace Base {
             AssetDatabase.Refresh();
             _saveObjects.Add(obj);
             CreateEnums();
-            NewSaveObject = ScriptableObject.CreateInstance<SaveObject>();
+            newBSaveObject = ScriptableObject.CreateInstance<B_SaveObject>();
         }
 
         [VerticalGroup("Main Functions")]
@@ -91,7 +91,7 @@ namespace Base {
             foreach (var item in AssetDatabase.FindAssets("", assetsPath)) {
 
                 var path = AssetDatabase.GUIDToAssetPath(item);
-                var _saveObject = AssetDatabase.LoadAssetAtPath(path, typeof(SaveObject)) as SaveObject;
+                var _saveObject = AssetDatabase.LoadAssetAtPath(path, typeof(B_SaveObject)) as B_SaveObject;
 
 
 
@@ -117,16 +117,16 @@ namespace Base {
                 _temp[i] = _saveObjects[i].SaveName;
                 _saveObjects[i].CreateEnums();
             }
-            EnumCreator.CreateEnum("Saves", _temp);
+            B_EnumCreator.CreateEnum("Saves", _temp);
         }
 
         private bool IsReadyForSave() {
-            if (NewSaveObject == null) return false;
-            if (string.IsNullOrEmpty(NewSaveObject.SaveName)) return false;
-            if (NewSaveObject.SaveName.Length <= 3) return false;
-            if (NewSaveObject.SaveCluster.Count < 1) return false;
-            for (var i = 0; i < NewSaveObject.SaveCluster.Count; i++)
-                if (NewSaveObject.SaveCluster[i].Name.IsVaibleForSave() != ExtentionFunctions.SaveNameViabilityStatus.Viable)
+            if (newBSaveObject == null) return false;
+            if (string.IsNullOrEmpty(newBSaveObject.SaveName)) return false;
+            if (newBSaveObject.SaveName.Length <= 3) return false;
+            if (newBSaveObject.SaveCluster.Count < 1) return false;
+            for (var i = 0; i < newBSaveObject.SaveCluster.Count; i++)
+                if (newBSaveObject.SaveCluster[i].Name.IsVaibleForSave() != B_ExtentionFunctions.SaveNameViabilityStatus.Viable)
                     return false;
             return true;
         }
@@ -136,11 +136,11 @@ namespace Base {
         }
 
         public string InfoBoxString() {
-            if (NewSaveObject == null) return null;
-            if (string.IsNullOrEmpty(NewSaveObject.SaveName) || NewSaveObject.SaveName.Length <= 3) return "Enter A Name";
-            if (NewSaveObject.SaveCluster.Count < 1) return "Enter Atleast One Data";
-            for (var i = 0; i < NewSaveObject.SaveCluster.Count; i++)
-                if (NewSaveObject.SaveCluster[i].Name.IsVaibleForSave() != ExtentionFunctions.SaveNameViabilityStatus.Viable)
+            if (newBSaveObject == null) return null;
+            if (string.IsNullOrEmpty(newBSaveObject.SaveName) || newBSaveObject.SaveName.Length <= 3) return "Enter A Name";
+            if (newBSaveObject.SaveCluster.Count < 1) return "Enter Atleast One Data";
+            for (var i = 0; i < newBSaveObject.SaveCluster.Count; i++)
+                if (newBSaveObject.SaveCluster[i].Name.IsVaibleForSave() != B_ExtentionFunctions.SaveNameViabilityStatus.Viable)
                     return "Enter Atleast One Data";
             return null;
         }

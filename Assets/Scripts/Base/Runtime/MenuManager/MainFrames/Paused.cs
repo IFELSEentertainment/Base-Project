@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using DG.Tweening;
 namespace Base.UI {
-    public class UI_Paused : B_UI_MenuSubFrame {
-        public override Task SetupFrame(B_UI_ManagerMainFrame Mainframe) {
+    public class Paused : B_MenuSubFrame {
+        public override Task SetupFrame(B_ManagerMainFrame Mainframe) {
             return base.SetupFrame(Mainframe);
         }
 

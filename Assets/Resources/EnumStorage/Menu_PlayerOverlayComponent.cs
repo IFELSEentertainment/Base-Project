@@ -1,1 +1,1 @@
-public enum Enum_Menu_PlayerOverlayComponent{ Score, CoinIcon, ScoreText}
+public enum Enum_Menu_PlayerOverlayComponent{ TestScore}

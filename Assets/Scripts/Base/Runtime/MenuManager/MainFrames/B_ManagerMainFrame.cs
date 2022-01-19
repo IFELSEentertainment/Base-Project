@@ -10,14 +10,14 @@ using UnityEditor.SceneManagement;
 using UnityEditor;
 #endif
 namespace Base.UI {
-    public class B_UI_ManagerMainFrame : B_M_ManagerBase {
+    public class B_ManagerMainFrame : B_ManagerBase {
 
         public override Task ManagerStrapping() {
             if (instance == null) instance = this;
             else Destroy(gameObject);
             foreach (var item in Subframes) item.SetupFrame(this);
-            GUIManager.SetupStaticFrame();
-            GUIManager.ActivateAllPanels();
+            B_GUIManager.SetupStaticFrame();
+            B_GUIManager.ActivateAllPanels();
 
             return base.ManagerStrapping();
         }
@@ -30,7 +30,7 @@ namespace Base.UI {
 
         private void AddChilds(Transform item) {
             foreach (Transform child in item) {
-                if (child.GetComponent<B_UI_MenuSubFrame>()) Subframes.Add(child.GetComponent<B_UI_MenuSubFrame>());
+                if (child.GetComponent<B_MenuSubFrame>()) Subframes.Add(child.GetComponent<B_MenuSubFrame>());
                 if (child.childCount > 0) AddChilds(child);
             }
         }
@@ -41,7 +41,7 @@ namespace Base.UI {
         
         #region Properties
 
-        public static B_UI_ManagerMainFrame instance;
+        public static B_ManagerMainFrame instance;
         [ShowIf("OnEditor")]
         [FoldoutGroup("Editor Functions")]
         [PropertyTooltip("DO NOT ENABLE THIS IF YOU DON'T KNOW WHAT YOU ARE DOING")]
@@ -49,7 +49,7 @@ namespace Base.UI {
         [EnableIf("AreYouSure")]
         [ShowIf("OnEditor")]
         [FoldoutGroup("Editor Functions")]
-        [SerializeField] public List<B_UI_MenuSubFrame> Subframes;
+        [SerializeField] public List<B_MenuSubFrame> Subframes;
 
         
         #endregion
@@ -63,7 +63,7 @@ namespace Base.UI {
         [VerticalGroup("Editor Functions/Upper", .5f)]
         [Button("Setup Subframes")]
         public async void SetupSubframes() {
-            Subframes = new List<B_UI_MenuSubFrame>();
+            Subframes = new List<B_MenuSubFrame>();
             //Needs a better logic system for deciding when to do what
             if (transform.childCount != 5) AddEmptyMenus();
             AddChilds(transform);
@@ -81,7 +81,7 @@ namespace Base.UI {
                 foreach (var subcomponents in subframe.SubComponents) await subcomponents.FlushData();
                 await subframe.FlushFrameData();
             }
-            Subframes = new List<B_UI_MenuSubFrame>();
+            Subframes = new List<B_MenuSubFrame>();
         }
 
         [ShowIf("AreYouSure")]
@@ -90,7 +90,7 @@ namespace Base.UI {
         public void ClearSubframes() {
             for (var i = transform.childCount; i > 0; --i)
                 DestroyImmediate(transform.GetChild(0).gameObject);
-            Subframes = new List<B_UI_MenuSubFrame>();
+            Subframes = new List<B_MenuSubFrame>();
         }
 
         [ShowIf("AreYouSure")]
@@ -131,10 +131,10 @@ namespace Base.UI {
                     }
                 }
                 if (names.Count <= 0) Debug.LogWarning("No Components Found, Please Add Components");
-                else EnumCreator.CreateEnum(enumGenericName, names.ToArray());
+                else B_EnumCreator.CreateEnum(enumGenericName, names.ToArray());
             }
             Debug.Log(TotalComponentCount + " Components Found! " + TotalDuplicateCount + " Duplicates Renamed!");
-            Debug.Log("Please Save The Unity Editor And Then Check If Enums Are Set");
+            Debug.Log("Please bSave The Unity Editor And Then Check If Enums Are Set");
             return Task.CompletedTask;
         }
 
@@ -173,25 +173,25 @@ namespace Base.UI {
                 obj.transform.parent = transform;
                 obj.transform.localPosition = Vector3.zero;
                 obj.AddComponent(MenuType((Enum_MenuTypes)i).GetType());
-                obj.GetComponent<B_UI_MenuSubFrame>().MenuType = (Enum_MenuTypes)i;
+                obj.GetComponent<B_MenuSubFrame>().MenuType = (Enum_MenuTypes)i;
                 obj.GetComponent(MenuType(Enum_MenuTypes.Menu_GameOver).GetType());
             }
         }
 
-        private B_UI_MenuSubFrame MenuType(Enum_MenuTypes types) {
+        private B_MenuSubFrame MenuType(Enum_MenuTypes types) {
             switch (types) {
                 case Enum_MenuTypes.Menu_Main:
-                    return new UI_Main();
+                    return new Main();
                 case Enum_MenuTypes.Menu_PlayerOverlay:
-                    return new UI_PlayerOverlay();
+                    return new PlayerOverlay();
                 case Enum_MenuTypes.Menu_Paused:
-                    return new UI_Paused();
+                    return new Paused();
                 case Enum_MenuTypes.Menu_GameOver:
-                    return new UI_Gameover();
+                    return new Gameover();
                 case Enum_MenuTypes.Menu_Loading:
-                    return new UI_Loading();
+                    return new Loading();
                 default:
-                    return new UI_Default();
+                    return new Default();
             }
         }
 
