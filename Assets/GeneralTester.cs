@@ -42,6 +42,6 @@ public class GeneralTester : MonoBehaviour
     }
 
     void TestScoreChange() {
-        B_GUIManager.GetText(Enum_Menu_PlayerOverlayComponent.TestScore).ChangeText(PlayerCoin.DataToString());
+        Enum_Menu_PlayerOverlayComponent.TestScore.GetText().ChangeText(PlayerCoin.DataToString());
     }
 }

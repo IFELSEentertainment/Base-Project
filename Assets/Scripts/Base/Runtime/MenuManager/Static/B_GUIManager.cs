@@ -97,40 +97,41 @@ namespace Base.UI {
         #endregion
 
         #region Text
-
-        public static UI_CTMProGUISubframe GetText(Enum_Menu_GameOverComponent enumToPull) {
+        
+        public static UI_CTMProGUISubframe GetText(this Enum_Menu_GameOverComponent enumToPull) {
             return GameOver.GetText(enumToPull.ToString());
         }
-        public static UI_CTMProGUISubframe GetText(Enum_Menu_LoadingComponent enumToPull) {
+        public static UI_CTMProGUISubframe GetText(this Enum_Menu_LoadingComponent enumToPull) {
             return Loading.GetText(enumToPull.ToString());
         }
-        public static UI_CTMProGUISubframe GetText(Enum_Menu_MainComponent enumToPull) {
+        public static UI_CTMProGUISubframe GetText(this Enum_Menu_MainComponent enumToPull) {
             return Main.GetText(enumToPull.ToString());
         }
-        public static UI_CTMProGUISubframe GetText(Enum_Menu_PausedComponent enumToPull) {
+        public static UI_CTMProGUISubframe GetText(this Enum_Menu_PausedComponent enumToPull) {
             return Paused.GetText(enumToPull.ToString());
         }
-        public static UI_CTMProGUISubframe GetText(Enum_Menu_PlayerOverlayComponent enumToPull) {
+
+        public static UI_CTMProGUISubframe GetText(this Enum_Menu_PlayerOverlayComponent enumToPull) {
             return PlayerOverlay.GetText(enumToPull.ToString());
         }
-
+        
         #endregion
 
         #region Slider
 
-        public static UI_CSliderSubframe GetSlider(Enum_Menu_GameOverComponent enumToPull) {
+        public static UI_CSliderSubframe GetSlider(this Enum_Menu_GameOverComponent enumToPull) {
             return GameOver.GetSlider(enumToPull.ToString());
         }
-        public static UI_CSliderSubframe GetSlider(Enum_Menu_LoadingComponent enumToPull) {
+        public static UI_CSliderSubframe GetSlider(this Enum_Menu_LoadingComponent enumToPull) {
             return Loading.GetSlider(enumToPull.ToString());
         }
-        public static UI_CSliderSubframe GetSlider(Enum_Menu_MainComponent enumToPull) {
+        public static UI_CSliderSubframe GetSlider(this Enum_Menu_MainComponent enumToPull) {
             return Main.GetSlider(enumToPull.ToString());
         }
-        public static UI_CSliderSubframe GetSlider(Enum_Menu_PausedComponent enumToPull) {
+        public static UI_CSliderSubframe GetSlider(this Enum_Menu_PausedComponent enumToPull) {
             return Paused.GetSlider(enumToPull.ToString());
         }
-        public static UI_CSliderSubframe GetSlider(Enum_Menu_PlayerOverlayComponent enumToPull) {
+        public static UI_CSliderSubframe GetSlider(this Enum_Menu_PlayerOverlayComponent enumToPull) {
             return PlayerOverlay.GetSlider(enumToPull.ToString());
         }
 
@@ -138,19 +139,19 @@ namespace Base.UI {
 
         #region Button
 
-        public static UI_CButtonTMProSubframe GetButton(Enum_Menu_GameOverComponent enumToPull) {
+        public static UI_CButtonTMProSubframe GetButton(this Enum_Menu_GameOverComponent enumToPull) {
             return GameOver.GetButton(enumToPull.ToString());
         }
-        public static UI_CButtonTMProSubframe GetButton(Enum_Menu_LoadingComponent enumToPull) {
+        public static UI_CButtonTMProSubframe GetButton(this Enum_Menu_LoadingComponent enumToPull) {
             return Loading.GetButton(enumToPull.ToString());
         }
-        public static UI_CButtonTMProSubframe GetButton(Enum_Menu_MainComponent enumToPull) {
+        public static UI_CButtonTMProSubframe GetButton(this Enum_Menu_MainComponent enumToPull) {
             return Main.GetButton(enumToPull.ToString());
         }
-        public static UI_CButtonTMProSubframe GetButton(Enum_Menu_PausedComponent enumToPull) {
+        public static UI_CButtonTMProSubframe GetButton(this Enum_Menu_PausedComponent enumToPull) {
             return Paused.GetButton(enumToPull.ToString());
         }
-        public static UI_CButtonTMProSubframe GetButton(Enum_Menu_PlayerOverlayComponent enumToPull) {
+        public static UI_CButtonTMProSubframe GetButton(this Enum_Menu_PlayerOverlayComponent enumToPull) {
             return PlayerOverlay.GetButton(enumToPull.ToString());
         }
 
@@ -158,19 +159,19 @@ namespace Base.UI {
 
         #region Image
 
-        public static UI_CImageSubframe GetImage(Enum_Menu_GameOverComponent enumToPull) {
+        public static UI_CImageSubframe GetImage(this Enum_Menu_GameOverComponent enumToPull) {
             return GameOver.GetImage(enumToPull.ToString());
         }
-        public static UI_CImageSubframe GetImage(Enum_Menu_LoadingComponent enumToPull) {
+        public static UI_CImageSubframe GetImage(this Enum_Menu_LoadingComponent enumToPull) {
             return Loading.GetImage(enumToPull.ToString());
         }
-        public static UI_CImageSubframe GetImage(Enum_Menu_MainComponent enumToPull) {
+        public static UI_CImageSubframe GetImage(this Enum_Menu_MainComponent enumToPull) {
             return Main.GetImage(enumToPull.ToString());
         }
-        public static UI_CImageSubframe GetImage(Enum_Menu_PausedComponent enumToPull) {
+        public static UI_CImageSubframe GetImage(this Enum_Menu_PausedComponent enumToPull) {
             return Paused.GetImage(enumToPull.ToString());
         }
-        public static UI_CImageSubframe GetImage(Enum_Menu_PlayerOverlayComponent enumToPull) {
+        public static UI_CImageSubframe GetImage(this Enum_Menu_PlayerOverlayComponent enumToPull) {
             return PlayerOverlay.GetImage(enumToPull.ToString());
         }
 
@@ -178,19 +179,19 @@ namespace Base.UI {
 
         #region Panel
 
-        public static UI_CPanelSubframe GetPanel(Enum_Menu_GameOverComponent enumToPull) {
+        public static UI_CPanelSubframe GetPanel(this Enum_Menu_GameOverComponent enumToPull) {
             return GameOver.GetPanel(enumToPull.ToString());
         }
-        public static UI_CPanelSubframe GetPanel(Enum_Menu_LoadingComponent enumToPull) {
+        public static UI_CPanelSubframe GetPanel(this Enum_Menu_LoadingComponent enumToPull) {
             return Loading.GetPanel(enumToPull.ToString());
         }
-        public static UI_CPanelSubframe GetPanel(Enum_Menu_MainComponent enumToPull) {
+        public static UI_CPanelSubframe GetPanel(this Enum_Menu_MainComponent enumToPull) {
             return Main.GetPanel(enumToPull.ToString());
         }
-        public static UI_CPanelSubframe GetPanel(Enum_Menu_PausedComponent enumToPull) {
+        public static UI_CPanelSubframe GetPanel(this Enum_Menu_PausedComponent enumToPull) {
             return Paused.GetPanel(enumToPull.ToString());
         }
-        public static UI_CPanelSubframe GetPanel(Enum_Menu_PlayerOverlayComponent enumToPull) {
+        public static UI_CPanelSubframe GetPanel(this Enum_Menu_PlayerOverlayComponent enumToPull) {
             return PlayerOverlay.GetPanel(enumToPull.ToString());
         }
 
@@ -198,19 +199,19 @@ namespace Base.UI {
 
         #region Toggle
 
-        public static UI_CToggleSubframe GetToggle(Enum_Menu_GameOverComponent enumToPull) {
+        public static UI_CToggleSubframe GetToggle(this Enum_Menu_GameOverComponent enumToPull) {
             return GameOver.GetToggle(enumToPull.ToString());
         }
-        public static UI_CToggleSubframe GetToggle(Enum_Menu_LoadingComponent enumToPull) {
+        public static UI_CToggleSubframe GetToggle(this Enum_Menu_LoadingComponent enumToPull) {
             return Loading.GetToggle(enumToPull.ToString());
         }
-        public static UI_CToggleSubframe GetToggle(Enum_Menu_MainComponent enumToPull) {
+        public static UI_CToggleSubframe GetToggle(this Enum_Menu_MainComponent enumToPull) {
             return Main.GetToggle(enumToPull.ToString());
         }
-        public static UI_CToggleSubframe GetToggle(Enum_Menu_PausedComponent enumToPull) {
+        public static UI_CToggleSubframe GetToggle(this Enum_Menu_PausedComponent enumToPull) {
             return Paused.GetToggle(enumToPull.ToString());
         }
-        public static UI_CToggleSubframe GetToggle(Enum_Menu_PlayerOverlayComponent enumToPull) {
+        public static UI_CToggleSubframe GetToggle(this Enum_Menu_PlayerOverlayComponent enumToPull) {
             return PlayerOverlay.GetToggle(enumToPull.ToString());
         }
 
