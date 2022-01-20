@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7807e8bbf2afa41ae2726ed76f19a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivateRuntimeEditor: 1
+  ActivateRuntimeEditor: 0
 --- !u!1 &732196364
 GameObject:
   m_ObjectHideFlags: 0
@@ -3992,7 +3992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7d27fb70a04c1458e5e423adae998a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetFrameRate: 60
   HasTutorial: 0
   Managers:
   - {fileID: 1669055302690181986}
@@ -4000,8 +3999,8 @@ MonoBehaviour:
   - {fileID: 1371471049}
   - {fileID: 995054686}
   - {fileID: 1111304005}
-  VfmEffectsManager: {fileID: 2048625402}
-  RuntimeEditor: 0
+  VFMEffectsManager: {fileID: 2048625402}
+  TargetFrameRate: 60
 --- !u!1 &2108018875
 GameObject:
   m_ObjectHideFlags: 0

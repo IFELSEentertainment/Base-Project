@@ -9,6 +9,7 @@ namespace Base {
     public enum ActiveVirtualCameras { VirCam1, VirCam2, VirCam3 }
 
     public class B_CameraFunctions : B_ManagerBase {
+        
         #region Properties
 
         public static B_CameraFunctions instance;
@@ -24,6 +25,7 @@ namespace Base {
 
         private Dictionary<ActiveVirtualCameras, VirCam> VirtualCameras;
 
+        
         #endregion Properties
 
         #region Unity Functions
