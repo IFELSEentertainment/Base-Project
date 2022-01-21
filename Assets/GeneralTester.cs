@@ -10,7 +10,6 @@ public class GeneralTester : MonoBehaviour
 {
     void Start() {
         B_CES_CentralEventSystem.BTN_OnStartPressed.AddFunction(Testers, false);
-        
     }
 
     void Testers() {

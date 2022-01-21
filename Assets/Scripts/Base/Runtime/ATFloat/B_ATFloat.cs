@@ -101,7 +101,6 @@ namespace Base {
         Flat = 100,
         PercentMult = 200,
         PercentAdd = 300
-
     }
     [Serializable]
     public class B_ATModifier {

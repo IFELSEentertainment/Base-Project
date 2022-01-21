@@ -1,1 +1,1 @@
-public enum Enum_Menu_PlayerOverlayComponent{ TestScore}
+public enum Enum_Menu_PlayerOverlayComponent{ TestScore, NameSample}
