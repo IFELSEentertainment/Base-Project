@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using Base.UI;
 using DG.Tweening;
 using UnityEngine;
-#if UNITY_EDITOR
 using Sirenix.OdinInspector;
+#if UNITY_EDITOR
 #endif
 #if UNITY_IOS
 using Unity.Advertisement.IosSupport;
@@ -88,8 +88,8 @@ namespace Base {
             }
             Application.targetFrameRate = TargetFrameRate;
             
-            
             B_LevelControl.LoadLevel(Enum_MainSave.PlayerLevel.ToInt());
+            
             
         }
         private void OnApplicationQuit() {
@@ -102,6 +102,34 @@ namespace Base {
             #if UNITY_IOS
             DOTween.KillAll();
             #endif
+        }
+
+        private float deltaTime;
+        
+        void Update()
+        {
+            deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        }
+
+        void OnGUI()
+        {
+            ShowFPS();
+        }
+
+        private void ShowFPS()
+        {
+            int w = Screen.width, h = Screen.height;
+
+            GUIStyle style = new GUIStyle();
+
+            Rect rect = new Rect(0, 0, w, h * 2 / 100);
+            style.alignment = TextAnchor.UpperLeft;
+            style.fontSize = h * 2 / 100;
+            style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
+            float msec = deltaTime * 1000.0f;
+            float fps = 1.0f / deltaTime;
+            string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
+            GUI.Label(rect, text, style);
         }
 
         #endregion

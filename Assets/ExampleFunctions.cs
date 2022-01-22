@@ -2,38 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using Base;
 using Base.UI;
-using UnityEditorInternal;
 using UnityEngine;
 using static Enum_MainSave;
 
-public class GeneralTester : MonoBehaviour
-{
+public class ExampleFunctions : MonoBehaviour {
+    
     void Start() {
-        B_CES_CentralEventSystem.BTN_OnStartPressed.AddFunction(Testers, false);
+        B_CES_CentralEventSystem.BTN_OnStartPressed.AddFunction(ExampleMain, false);
+    }
+    
+    void ExampleMain() {
+        ExampleParticle().RunCoroutine(2);
+        ExampleSave().RunCoroutine();
+        B_ExtentionFunctions.RunWithDelay(ExampleUI, 2f);
     }
 
-    void Testers() {
-        TestBurst().RunCoroutine(2);
-        TestSave().RunCoroutine();
-        B_ExtentionFunctions.RunWithDelay(TestScoreChange, 2f);
-        
-    }
-
-    IEnumerator TestBurst() {
+    IEnumerator ExampleParticle() {
         for (int i = 0; i < 5; i++) {
             Enum_Particles.CubeExplosion.SpawnAParticle(transform.position).PlayParticle();
+            Enum_Particles.SphereExpo.SpawnAParticle(transform.position);
             yield return new WaitForSeconds(.5f);
         }
         yield return new WaitForSeconds(1f);
         B_GameControl.ActivateEndgame(true, 2);
     }
 
-    IEnumerator TestSave() {
+    IEnumerator ExampleSave() {
         string _oldPlayerCoin = PlayerCoin.DataToString();
         Debug.Log($"Current Player Coin is : {PlayerCoin.DataToString()}");
         yield return new WaitForSeconds(1f);
-        Debug.Log($"Saving Player Coin");
-        PlayerCoin.SetData(5);
+        Debug.Log($"Setting PlayerCoin Data");
+        PlayerCoin.SetData(Random.Range(1, 9999));
         yield return new WaitForSeconds(.5f);
         Debug.Log("Saving Completed");
         yield return new WaitForSeconds(.1f);
@@ -41,7 +40,7 @@ public class GeneralTester : MonoBehaviour
         yield return null;
     }
 
-    void TestScoreChange() {
+    void ExampleUI() {
         Enum_Menu_PlayerOverlayComponent.TestScore.GetText().ChangeText(PlayerCoin.DataToString());
     }
 }

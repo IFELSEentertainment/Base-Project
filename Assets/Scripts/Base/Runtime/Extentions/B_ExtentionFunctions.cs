@@ -292,7 +292,9 @@ namespace Base {
                 }
             }
             return assetPath;
+            
             #else
+            return null;
             #endif
         }
 
