@@ -16,15 +16,16 @@ public class GeneralTester : MonoBehaviour
         TestBurst().RunCoroutine(2);
         TestSave().RunCoroutine();
         B_ExtentionFunctions.RunWithDelay(TestScoreChange, 2f);
+        
     }
 
     IEnumerator TestBurst() {
         for (int i = 0; i < 5; i++) {
-            B_VFM_EffectsManager.instance.SpawnAParticle(Enum_Particles.CubeExplosion, transform.position).PlayParticle().transform.SetParent(transform);
+            Enum_Particles.CubeExplosion.SpawnAParticle(transform.position).PlayParticle();
             yield return new WaitForSeconds(.5f);
         }
         yield return new WaitForSeconds(1f);
-        B_GameManager.instance.ActivateEndgame(true,2f);
+        B_GameControl.ActivateEndgame(true, 2);
     }
 
     IEnumerator TestSave() {

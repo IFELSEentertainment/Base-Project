@@ -11,6 +11,34 @@ using UnityEngine;
 namespace Base {
     public static class B_ExtentionFunctions {
 
+        #region Transform Extentions
+
+        public static void ResizeObject(this Transform objToEnlarge, float Size) {
+            objToEnlarge.localScale = new Vector3(Size, Size, Size);
+        }
+
+        public static IEnumerable GetAllChilrenOnTransform(this Transform transform) {
+            List<Transform> transforms = new List<Transform>();
+            foreach (Transform item in transform) {
+                transforms.Add(item);
+            }
+            return transforms;
+        }
+        
+        public static void DestroyAllChildren(this Transform transform) {
+            if (transform.childCount <= 0) return;
+            for (int i = transform.childCount - 1; i >= 0; i--) {
+                #if UNITY_EDITOR
+                if (!Application.isPlaying)
+                    GameObject.DestroyImmediate(transform.GetChild(i).gameObject);
+                #endif
+                if (Application.isPlaying)
+                    GameObject.Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+
+        #endregion Transform Extentions
+        
         #region Recttransform Extentions
 
         //Use this to move Pesky uı objects
@@ -119,34 +147,28 @@ namespace Base {
 
         #endregion Math Extentions
 
-        #region Transform Extentions
+        #region Gameobject Extentions
 
-        public static void ResizeObject(this Transform objToEnlarge, float Size) {
-            objToEnlarge.localScale = new Vector3(Size, Size, Size);
+        public static T InstantiateB<T>(this T obj) where T : MonoBehaviour {
+            T returnobj = GameObject.Instantiate(obj, B_LevelControl.CurrentLevelObject);
+            return returnobj;
+        }
+        
+        public static T InstantiateB<T>(this T obj, Vector3 position) where T : MonoBehaviour {
+            T returnobj = GameObject.Instantiate(obj, B_LevelControl.CurrentLevelObject);
+            returnobj.transform.position = position;
+            return returnobj;
+        }
+        
+        public static T InstantiateB<T>(this T obj, Vector3 position, Quaternion rotation) where T : MonoBehaviour {
+            T returnobj = GameObject.Instantiate(obj, B_LevelControl.CurrentLevelObject);
+            returnobj.transform.position = position;
+            returnobj.transform.rotation = rotation;
+            return returnobj;
         }
 
-        public static IEnumerable GetAllChilrenOnTransform(this Transform transform) {
-            List<Transform> transforms = new List<Transform>();
-            foreach (Transform item in transform) {
-                transforms.Add(item);
-            }
-            return transforms;
-        }
-
-        public static void DestroyAllChildren(this Transform transform) {
-            if (transform.childCount <= 0) return;
-            for (int i = transform.childCount - 1; i >= 0; i--) {
-                #if UNITY_EDITOR
-                if (!Application.isPlaying)
-                    GameObject.DestroyImmediate(transform.GetChild(i).gameObject);
-                #endif
-                if (Application.isPlaying)
-                    GameObject.Destroy(transform.GetChild(i).gameObject);
-            }
-        }
-
-        #endregion Transform Extentions
-
+        #endregion
+        
         #region String Extentions
 
         public static bool IsAllLetters(this string s) {
@@ -325,7 +347,7 @@ namespace Base {
         /// </summary>
         /// <param name="enumerator"></param>
         public static Coroutine RunCoroutine(this IEnumerator enumerator) {
-            return B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator);
+            return B_CoroutineControl.Queue.RunCoroutine(enumerator);
         }
 
         /// <summary>
@@ -334,7 +356,7 @@ namespace Base {
         /// <param name="enumerator"></param>
         /// <param name="delay"></param>
         public static Coroutine RunCoroutine(this IEnumerator enumerator, float delay) {
-            return B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator, delay);
+            return B_CoroutineControl.Queue.RunCoroutine(enumerator, delay);
         }
 
         /// <summary>
@@ -343,7 +365,7 @@ namespace Base {
         /// <param name="enumerator"></param>
         /// <param name="coroutine"></param>
         public static void RunCoroutine(this IEnumerator enumerator, Coroutine coroutine) {
-            B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator, coroutine);
+            B_CoroutineControl.Queue.RunCoroutine(enumerator, coroutine);
         }
 
         /// <summary>
@@ -353,7 +375,7 @@ namespace Base {
         /// <param name="coroutine"></param>
         /// <param name="delay"></param>
         public static void RunCoroutine(this IEnumerator enumerator, Coroutine coroutine, float delay) {
-            B_CR_CoroutineRunner.instance.CQ.RunCoroutine(enumerator, coroutine, delay);
+            B_CoroutineControl.Queue.RunCoroutine(enumerator, coroutine, delay);
         }
 
         /// <summary>
@@ -362,9 +384,10 @@ namespace Base {
         /// <param name="enumerator"></param>
         /// <param name="delay"></param>
         public static Coroutine RunWithDelay(Action method, float delay) {
-            return B_CR_CoroutineRunner.instance.CQ.RunFunctionWithDelay(method, delay);
+            return B_CoroutineControl.Queue.RunFunctionWithDelay(method, delay);
         }
         #endregion
+        
     }
 }
 

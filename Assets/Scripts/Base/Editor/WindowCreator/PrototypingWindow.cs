@@ -8,7 +8,7 @@ namespace Base {
         }
         protected override OdinMenuTree BuildMenuTree() {
             var tree = new OdinMenuTree();
-            //tree.Add("bSave System", new B_SaveSystemEditor(tree));
+            //tree.Add("SaveSystem System", new B_SaveSystemEditor(tree));
             return tree;
         }
     }

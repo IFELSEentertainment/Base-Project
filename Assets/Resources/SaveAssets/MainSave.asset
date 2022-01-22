@@ -19,11 +19,11 @@ MonoBehaviour:
   - Name: TutorialPlayed
     Value: 1
   - Name: GameFinished
-    Value: 0
+    Value: 1
   - Name: PlayerLevel
     Value: 0
   - Name: PreviewLevel
     Value: 0
   - Name: PlayerCoin
-    Value: 100
+    Value: 0
   SaveEnumLocations: Assets/Resources/EnumStorage/MainSave.cs
