@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+#pragma warning disable CS0618
 #endif
 namespace Base.UI {
     public abstract class UI_TComponentsSubframe : MonoBehaviour {

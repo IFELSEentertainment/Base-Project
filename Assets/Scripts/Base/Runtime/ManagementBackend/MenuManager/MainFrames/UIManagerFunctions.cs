@@ -130,7 +130,7 @@ namespace Base.UI {
                         }
                     }
                 }
-                if (names.Count <= 0) Debug.LogWarning("No Components Found, Please Add Components");
+                    if (names.Count <= 0) Debug.LogWarning("No Components Found, Please Add Components");
                 else B_EnumCreator.CreateEnum(enumGenericName, names.ToArray());
             }
             Debug.Log(TotalComponentCount + " Components Found! " + TotalDuplicateCount + " Duplicates Renamed!");
@@ -150,7 +150,7 @@ namespace Base.UI {
                 for (var i = 1; i < Subframes.Count + 1; i++) Subframes[i - 1].MoveUIRect(new Vector3(1200 * i, 0, 0));
                 SeparateButtonName = "Pull Menus";
             }
-            Separated = Separated ? false : true;
+            Separated = !Separated;
         }
 
         #endregion

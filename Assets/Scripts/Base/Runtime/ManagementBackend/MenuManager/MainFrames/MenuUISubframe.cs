@@ -23,7 +23,9 @@ namespace Base.UI {
         private Dictionary<string, UI_CTMProGUISubframe> TMProDictionary;
         private Dictionary<string, UI_CToggleSubframe> ToggleDictionary;
 
+#pragma warning disable CS1998
         public virtual async Task SetupFrame(UIManagerFunctions Mainframe) {
+#pragma warning restore CS1998
             Parent = Mainframe;
 #if UNITY_EDITOR
             SetSubComponents();
