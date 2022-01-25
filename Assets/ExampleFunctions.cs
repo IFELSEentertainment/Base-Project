@@ -9,6 +9,10 @@ public class ExampleFunctions : MonoBehaviour {
     
     void Start() {
         B_CES_CentralEventSystem.BTN_OnStartPressed.AddFunction(ExampleMain, false);
+        if (TryGetComponent(out Collider collider)) {
+            Debug.Log(collider.GetRandomPoint());
+            Debug.Log(collider.GetRandomPoint(5));
+        }
     }
     
     void ExampleMain() {

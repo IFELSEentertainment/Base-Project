@@ -97,13 +97,14 @@ namespace Base {
             DOTween.KillAll();
         }
 
+
         private void OnApplicationPause(bool pauseStatus) {
-            B_GameControl.SaveAllGameData();
             #if UNITY_IOS
+            B_GameControl.SaveAllGameData();
+            
             DOTween.KillAll();
             #endif
         }
-
         private float deltaTime;
         
         void Update()

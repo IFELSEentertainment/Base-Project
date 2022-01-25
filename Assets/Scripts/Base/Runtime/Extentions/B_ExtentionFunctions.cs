@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 namespace Base {
     public static class B_ExtentionFunctions {
 
@@ -388,6 +389,26 @@ namespace Base {
         public static Coroutine RunWithDelay(Action method, float delay) {
             return B_CoroutineControl.Queue.RunFunctionWithDelay(method, delay);
         }
+        #endregion
+
+        #region Collider Extentions
+
+        public static Vector3 GetRandomPoint(this Collider collider) {
+            return new Vector3(
+                Random.Range(collider.bounds.min.x, collider.bounds.max.x),
+                Random.Range(collider.bounds.min.y, collider.bounds.max.y),
+                Random.Range(collider.bounds.min.z, collider.bounds.max.z)
+            );
+        }
+        
+        public static Vector3 GetRandomPoint(this Collider collider, float extends) {
+            return new Vector3(
+                Random.Range(collider.bounds.min.x, collider.bounds.max.x) * extends,
+                Random.Range(collider.bounds.min.y, collider.bounds.max.y) * extends,
+                Random.Range(collider.bounds.min.z, collider.bounds.max.z) * extends
+            );
+        }
+
         #endregion
         
     }

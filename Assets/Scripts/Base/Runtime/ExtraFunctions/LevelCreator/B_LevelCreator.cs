@@ -108,6 +108,7 @@ public class B_LevelCreator : SerializedMonoBehaviour {
     [HorizontalGroup("Level Creator/VB/A", .5f)]
     [Button]
     public void Clear() {
+        SaveChanges();
         transform.DestroyAllChildren();
         AssetDatabase.SaveAssets();
     }

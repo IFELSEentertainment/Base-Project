@@ -3274,7 +3274,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  SelectedLevel: MainLevel 004
+  SelectedLevel: Null
 --- !u!1 &1686011847
 GameObject:
   m_ObjectHideFlags: 0
