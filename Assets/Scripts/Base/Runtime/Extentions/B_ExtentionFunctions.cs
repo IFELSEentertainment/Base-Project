@@ -108,6 +108,22 @@ namespace Base {
         public static float Remap(this float value, float from1, float to1, float from2, float to2) {
             return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
         }
+        
+        public static float Remap(this int value, float from1, float to1, float from2, float to2) {
+            return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+        }
+        
+        public static float CRemap(this float value, float from1, float to1, float from2, float to2) {
+            float x = (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+            x = Mathf.Clamp(x, to1, to2);
+            return x;
+        }
+        
+        public static float CRemap(this int value, float from1, float to1, float from2, float to2) {
+            float x = (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+            x = Mathf.Clamp(x, to1, to2);
+            return x;
+        }
 
         public static float ClampAngle(float angle, float min, float max) {
             angle = Mathf.Repeat(angle, 360);

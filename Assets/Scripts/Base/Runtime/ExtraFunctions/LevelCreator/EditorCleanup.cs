@@ -12,7 +12,10 @@ public class EditorCleanup
 {
     [InitializeOnEnterPlayMode]
     static void test() {
-        GameObject.Find("LevelHolder").transform.GetComponent<B_LevelCreator>().Clear();
+        GameObject obj = GameObject.Find("LevelHolder");
+        if (obj) {
+            obj.transform.GetComponent<B_LevelCreator>().Clear();
+        }
     }
     
 }

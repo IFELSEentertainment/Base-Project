@@ -16,6 +16,7 @@ namespace Base {
     public class BaseEngine : MonoBehaviour {
 
         #region Properties
+        
         [TabGroup("Master", "Bridge")]
         public B_Bridge Bridge;
 
@@ -24,9 +25,15 @@ namespace Base {
         [TabGroup("Master", "Editor Control")]
         [TabGroup("Master", "Editor Control")]
         [SerializeField] private B_EffectsFunctions effectsFunctions;
-
+        [TabGroup("Master", "Editor Control")]
+        [SerializeField] private bool ShowFps;
+        /// <summary>
+        /// Set to -1 to get unlimited frame rate
+        /// </summary>
+        [TabGroup("Master", "Game Aspect Control")]
+        [SerializeField] private int TargetFrameRate = 60;
+        
         #endregion
-
         #region Unity Functions
 
         private void Awake() {
@@ -53,11 +60,7 @@ namespace Base {
 
         #region Spesific Functions
 
-        /// <summary>
-        /// Set to -1 to get unlimited frame rate
-        /// </summary>
-        [TabGroup("Master", "Game Aspect Control")]
-        [SerializeField] private int TargetFrameRate = 60;
+
         /// <summary>
         /// Prepares every aspect of the Base Engine
         /// Loads and sets up managers, level loading system, save system etc.
@@ -77,9 +80,7 @@ namespace Base {
             await B_EffectsManager.EffectsManagerStrapping();
 
             GameStates.Start.SetGameState();
-
-
-
+            
             B_GameControl.SaveAllGameData();
             B_GUIManager.ActivateOnePanel(Enum_MenuTypes.Menu_Main, .2f);
 
@@ -89,7 +90,6 @@ namespace Base {
             Application.targetFrameRate = TargetFrameRate;
             
             B_LevelControl.LoadLevel(Enum_MainSave.PlayerLevel.ToInt());
-            
             
         }
         private void OnApplicationQuit() {
@@ -109,12 +109,14 @@ namespace Base {
         
         void Update()
         {
-            deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+            if(ShowFps)
+                deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         }
 
         void OnGUI()
         {
-            ShowFPS();
+            if(ShowFps)
+                ShowFPS();
         }
 
         private void ShowFPS()
