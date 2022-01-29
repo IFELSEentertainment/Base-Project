@@ -12,9 +12,10 @@ public class SpiralTest : MonoBehaviour {
 
     [SerializeField] private float currentAngle;
     [SerializeField] private float angularSpeed = 1f;
-    [SerializeField] private float circleRad = 1f;
+    [SerializeField] private float MainCircleRad = 1f;
+    [SerializeField] private Vector2 IndiviualCircleRad = Vector2.one;
 
-    Vector2 fixedPoint = Vector2.zero;
+    readonly Vector2 fixedPoint = Vector2.zero;
     private void Start() {
         movePos = transform.position;
     }
@@ -23,9 +24,9 @@ public class SpiralTest : MonoBehaviour {
         movePos = Vector3.zero;
         if (Spiral) {
             currentAngle += angularSpeed * Time.deltaTime;
-            Vector2 offset = new Vector2 (Mathf.Sin (currentAngle), Mathf.Cos (currentAngle)) * circleRad;
-            movePos.x = (fixedPoint + offset).x * Time.deltaTime;
-            movePos.y = (fixedPoint + offset).y * Time.deltaTime;
+            Vector2 offset = new Vector2(Mathf.Sin(currentAngle), Mathf.Cos(currentAngle)) * MainCircleRad;
+            movePos.x = (fixedPoint + offset).x * Time.deltaTime * IndiviualCircleRad.x; 
+            movePos.y = (fixedPoint + offset).y * Time.deltaTime * IndiviualCircleRad.y;
         }
         movePos.z += (Vector3.forward * Time.deltaTime * MovementForward).z;
     }
