@@ -34,6 +34,7 @@ namespace Base {
         [SerializeField] private int TargetFrameRate = 60;
         
         #endregion
+        
         #region Unity Functions
 
         private void Awake() {
